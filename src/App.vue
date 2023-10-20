@@ -3,11 +3,8 @@
 </script>
 
 <template>
-  <div>
-    
-  </div>
+    <h1>APP</h1>
+    <router-view />
 </template>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
