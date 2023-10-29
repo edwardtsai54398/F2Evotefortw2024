@@ -27,7 +27,7 @@ export default {
     });
     onMounted(() => {
       // 處理各政黨得票率
-      const perPartyRation = (party, sum) => {
+      const perPartyRatio = (party, sum) => {
         const ratio = (sum / totalVote.value.toFixed(8)) * 100;
         switch (party) {
           case "民進黨":
@@ -49,7 +49,7 @@ export default {
       const partyOrder = Object.values(vote).sort((a, b) => b - a);
       for (let index = 0; index < partyOrder.length; index++) {
         Object.keys(vote).forEach(party => {
-          perPartyRation(party, vote[party]);
+          if (index === 0) perPartyRatio(party, vote[party]);
           if (vote[party] === partyOrder[index]) {
             switch (party) {
               case "民進黨":

@@ -1,24 +1,5 @@
 <script setup>
 import { ref } from "vue";
-import VoteBar from "@/components/VoteBar.vue";
-const datas = [
-  {
-    name: "taipei",
-    vote: {
-      "民進黨": 1000000,
-      "國民黨": 54515,
-      "民眾黨": 850000,
-    },
-  },
-  {
-    name: "taichung",
-    vote: {
-      "民進黨": 200000,
-      "國民黨": 60000,
-      "民眾黨": 450000,
-    },
-  },
-]
 
 const count = ref(0);
 </script>
@@ -31,9 +12,6 @@ const count = ref(0);
         <a href="#"><img src="../../public/LOGO.svg" alt="Logo" /></a>
       </header>
       <main>
-        <div v-for="data in datas" :key="data.name">
-          <VoteBar :data="data"/>
-        </div>
         <div class="txt">TAIWAN Presidential Election</div>
         <section class="player_list">
           <div class="player_1">
