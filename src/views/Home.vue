@@ -15,16 +15,24 @@ const count = ref(0);
         <div class="txt">TAIWAN Presidential Election</div>
         <section class="player_list">
           <div class="player_1">
-            <img src="../../public/home/player_1_all.png" alt="" />
+            <router-link :to="`/candidate/1`"
+              ><img src="../../public/home/player_1_all.png" alt=""
+            /></router-link>
           </div>
           <div class="player_2">
-            <img src="../../public/home/player_2_all.png" alt="" />
+            <router-link :to="`/candidate/2`"
+              ><img src="../../public/home/player_2_all.png" alt=""
+            /></router-link>
           </div>
           <div class="player_3">
-            <img src="../../public/home/player_3_all.png" alt="" />
+            <router-link :to="`/candidate/3`"
+              ><img src="../../public/home/player_3_all.png" alt=""
+            /></router-link>
           </div>
           <div class="go_map">
-            <img src="../../public/home/go_map_all.png" alt="" />
+            <a href="#"
+              ><img src="../../public/home/go_map_all.png" alt=""
+            /></a>
           </div>
         </section>
       </main>
@@ -90,15 +98,14 @@ const count = ref(0);
         color: rgba(254, 251, 243, 0.6);
         font-family: Noto Sans TC;
         font-size: 30px;
-        font-style: normal;
         font-weight: 900;
-        line-height: 50px; /* 166.667% */
+        line-height: 50px;
         letter-spacing: 1.5px;
         text-align: right;
       }
 
       .player_list {
-        position: relative; /* 设置容器为相对定位，以便子元素使用绝对定位 */
+        position: relative;
         display: grid;
         grid-template-columns: repeat(9, 1fr);
         gap: 20px;
@@ -108,13 +115,9 @@ const count = ref(0);
         margin: auto;
 
         .player_1 {
-          position: absolute; /* 设置子元素为绝对定位 */
+          position: absolute;
           grid-column: 1 / span 4;
-          // top: 0; /* 距离顶部的位置 */
-          // top: 100%;
-          left: 0; /* 距离左侧的位置 */
-          // height: 100%;
-          // width: 100%;
+          left: 0;
           img {
             width: 100%;
             height: 100%;
@@ -124,23 +127,28 @@ const count = ref(0);
         }
 
         .player_2 {
-          position: absolute; /* 设置子元素为绝对定位 */
+          position: absolute;
           grid-column: 3 / span 4;
-          top: 0; /* 距离顶部的位置 */
+          top: 0;
           left: 20px;
-          img {
-            width: 100%;
+          a {
+            // clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
             height: 100%;
-            box-sizing: border-box;
-            object-fit: cover;
+            width: 100%;
+            display: block;
+            img {
+              width: 100%;
+              height: 100%;
+              box-sizing: border-box;
+              object-fit: cover;
+            }
           }
         }
 
         .player_3 {
-          position: absolute; /* 设置子元素为绝对定位 */
+          position: absolute;
           grid-column: 6 / span 4;
-          top: 0; /* 距离顶部的位置 */
-          /* 距离左侧的位置 */
+          top: 0;
           img {
             width: 100%;
             height: 100%;
@@ -150,9 +158,9 @@ const count = ref(0);
         }
 
         .go_map {
-          position: absolute; /* 设置子元素为绝对定位 */
+          position: absolute;
           grid-column: 9 / span 1;
-          top: 0; /* 距离顶部的位置 */
+          top: 0;
           right: -10px;
           img {
             width: 100%;
