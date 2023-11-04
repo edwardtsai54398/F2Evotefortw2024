@@ -1,8 +1,29 @@
 <script setup>
-import { ref, reactive, onMounted } from "vue";
-import * as d3 from "d3";
-import * as topojson from "topojson-client";
-
+import { ref, reactive, onMounted } from 'vue'
+import * as d3 from 'd3'
+import VoteBar from "@/components/VoteBar.vue";
+const datas = [
+  {
+    name: "taipei",
+    vote: {
+      "民進黨": 1000000,
+      "國民黨": 54515,
+      "民眾黨": 850000,
+    },
+  },
+  {
+    name: "taichung",
+    vote: {
+      "民進黨": 200000,
+      "國民黨": 60000,
+      "民眾黨": 450000,
+    },
+  },
+]
+const count = ref(0)
+// d3.csv.parse('./public/2020_presedent/總統-A05-1-候選人得票數一覽表(中　央).csv').then((data)=>{
+//   console.log(data);
+// })
 //畫台灣地圖
 function drawMap(el, data) {
   const d3map = d3.select(el)
@@ -73,15 +94,15 @@ onMounted(() => {
         drawMap(".map svg", data);
     });
 });
+
 </script>
 
 <template>
-    <h2>歷史開票</h2>
-    <div class="d-flex">
-      <div class="map">
-          <svg ref="map"></svg>
-      </div>
-    </div>
+  <h2>歷史開票</h2>
+  <div class="map"></div>
+  <div v-for="data in datas" :key="data.name">
+          <VoteBar :data="data"/>
+  </div>
 </template>
 
 <style lang="scss">

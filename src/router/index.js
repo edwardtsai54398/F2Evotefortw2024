@@ -1,5 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import Home from '../views/Home.vue';
+
+
 const routes = [
   {
     path: '/',
@@ -7,9 +9,10 @@ const routes = [
     component: Home,
   },
   {
-    path: '/candidate',
+    path: '/candidate/:id',
     name: 'Candidate',
     component: () => import('@/views/Candidate.vue'),
+    props: true // 將路由參數傳遞給 props
   },
   {
     path: '/vote',
