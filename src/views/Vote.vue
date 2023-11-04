@@ -2,6 +2,7 @@
 import { ref, reactive, onMounted } from 'vue'
 import * as d3 from 'd3'
 import VoteBar from "@/components/VoteBar.vue";
+import SideMenu from "@/components/SideMenu.vue";
 const datas = [
   {
     name: "taipei",
@@ -100,6 +101,7 @@ onMounted(() => {
 <template>
   <h2>歷史開票</h2>
   <div class="map"></div>
+  <SideMenu />
   <div v-for="data in datas" :key="data.name">
           <VoteBar :data="data"/>
   </div>
