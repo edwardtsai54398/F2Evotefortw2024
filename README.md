@@ -32,7 +32,7 @@
 UI 設計師<br>
 負責項目：
 
-### [余誼珊](https://github.com/96087)
+### [余誼珊](https://github.com/sunny96087)
 前端工程師<br>
 負責項目：
 
