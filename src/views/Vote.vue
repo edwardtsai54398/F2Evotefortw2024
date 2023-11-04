@@ -3,24 +3,7 @@ import { ref, onMounted, nextTick } from "vue";
 import * as d3 from "d3";
 import * as topojson from "topojson-client";
 import VoteBar from "@/components/VoteBar.vue";
-const datas = [
-    {
-        name: "taipei",
-        vote: {
-            民進黨: 1000000,
-            國民黨: 54515,
-            民眾黨: 850000,
-        },
-    },
-    {
-        name: "taichung",
-        vote: {
-            民進黨: 200000,
-            國民黨: 60000,
-            民眾黨: 450000,
-        },
-    },
-];
+import SideMenu from "@/components/SideMenu.vue";
 
 const taiwanMapData = ref([]);
 const cityMapData = ref([]);
@@ -130,48 +113,53 @@ onMounted(() => {
 </script>
 
 <template>
-    <h2>歷史開票</h2>
-    <div class="map">
-        <svg ref="mapRef">
-            <g id="nation-map">
-                <g
-                    class="county"
-                    v-for="city in taiwanMapData"
-                    :id="city.properties.COUNTYNAME"
-                    :key="city.properties.COUNTYCODE"
-                    @click="showDistrictOrVilla(city.properties)"
-                >
-                    <title>{{ city.properties.COUNTYNAME }}</title>
-                </g>
-                <g class="district">
-                    <g
-                        v-for="district in cityMapData"
-                        :key="district.properties.TOWNCODE"
-                        :id="district.properties.TOWNNAME"
-                        :data-city="district.properties.COUNTYNAME"
-                    >
-                        <title>{{ district.properties.TOWNNAME }}</title>
-                    </g>
-                </g>
-                <g class="village">
-                    <g></g>
-                </g>
-            </g>
-        </svg>
-    </div>
-    <div v-for="data in datas" :key="data.name">
-        <VoteBar :data="data" />
+    <div class="vote-page">
+      <h2>歷史開票</h2>
+      <SideMenu />
+      <div class="map">
+          <svg ref="mapRef">
+              <g id="nation-map">
+                  <g
+                      class="county"
+                      v-for="city in taiwanMapData"
+                      :id="city.properties.COUNTYNAME"
+                      :key="city.properties.COUNTYCODE"
+                      @click="showDistrictOrVilla(city.properties)"
+                  >
+                      <title>{{ city.properties.COUNTYNAME }}</title>
+                  </g>
+                  <g class="district">
+                      <g
+                          v-for="district in cityMapData"
+                          :key="district.properties.TOWNCODE"
+                          :id="district.properties.TOWNNAME"
+                          :data-city="district.properties.COUNTYNAME"
+                      >
+                          <title>{{ district.properties.TOWNNAME }}</title>
+                      </g>
+                  </g>
+                  <g class="village">
+                      <g></g>
+                  </g>
+              </g>
+          </svg>
+      </div>
     </div>
 </template>
 
 <style lang="scss">
 @import "@/assets/scss/all.scss";
+.vote-page {
+  display: flex;
+  max-width: 1280px;
+}
 .d-flex {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .map {
+    width: 70%;
     // overflow: hidden;
     height: 650px;
     width: 500px;

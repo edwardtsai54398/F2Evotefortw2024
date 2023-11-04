@@ -1,4 +1,5 @@
 <template>
+  
   <div class="vote-bar">
     <span class="title">
       {{ data.name }}
@@ -32,15 +33,15 @@ export default {
         switch (party) {
           case "民進黨":
             bar1.value.style.width = `${ratio}%`;
-            bar1.value.style.backgroundColor = "green";
+            bar1.value.style.backgroundColor = `rgb(116,156,116)`;
             break;
           case "國民黨":
             bar2.value.style.width = `${ratio}%`
-            bar2.value.style.backgroundColor = "blue";
+            bar2.value.style.backgroundColor = "rgba(140, 181, 219, 1)";
             break;
-          case "民眾黨":
+          case "親民黨":
             bar3.value.style.width = `${ratio}%`
-            bar3.value.style.backgroundColor = "white";
+            bar3.value.style.backgroundColor = "rgba(255, 176, 134, 1)";
             break;
         }
       };
@@ -58,7 +59,7 @@ export default {
               case "國民黨":
                 bar2.value.style.order = `${index+1}`;
                 break;
-              case "民眾黨":
+              case "親民黨":
                 bar3.value.style.order = `${index+1}`;
                 break;
               default:
@@ -80,15 +81,17 @@ export default {
 
 <style lang="scss" scoped>
 .vote-bar {
+  width: 100%;
   display: flex;
+  justify-content: space-between;
   margin-bottom: 20px;
   .title {
-    width: 150px;
+    width: 20%;
     font-size: 30px;
-    color: #fff;
+    color: rgba(61, 61, 61, 1);
   }
   .bar-ratio {
-    min-width: 300px;
+    width: 70%;
     display: flex;
     border-radius: 10px;
     overflow: hidden;
