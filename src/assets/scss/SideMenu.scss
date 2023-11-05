@@ -26,7 +26,7 @@ linear-gradient(0deg, #0D2562, #0D2562);
       font-size: 14px;
       z-index: 100;
     }
-    .city.on {
+    .city.on, .area.on {
       background: rgba(255, 245, 217, 1);
       border-radius: 6px 6px 0 0;
     }
@@ -103,12 +103,13 @@ linear-gradient(0deg, #0D2562, #0D2562);
     }
   }
   .each-area-ratio {
+    position: relative;
     max-height: 420px;
     padding: 15px 25px 0;
     font-size: 14px;
     color: rgba(172, 172, 172, 1);
     overflow-y: auto;
-    .title {
+    > .title {
       width: 100%;
       display: flex;
       justify-content: space-between;

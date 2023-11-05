@@ -68,3 +68,13 @@ export const transformName = (city) => {
       break;
   }
 }
+
+export const findCountyIndex = (data, start, end) => {
+  const startIndex = data.findIndex((el) => {
+    return el["行政區別"] === start;
+  });
+  const endIndex = data.findIndex((el) => {
+    return el["行政區別"] === end;
+  });
+  return [startIndex, endIndex];
+}

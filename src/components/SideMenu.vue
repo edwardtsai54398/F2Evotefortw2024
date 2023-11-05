@@ -10,9 +10,20 @@
             <li v-for="city in cities" :key="city" @click="selectCity(city)">{{ city }}</li>
           </ul>
         </div>
-        <div class="area">
-          <img src="../../public/arrow.svg" alt="" class="area-arrow" :class="{active: citySelectionOpen}">
-          <span>選擇區域</span>
+        <div class="area" @click="openCountySelection" :class="{on: countySelectionOpen}">
+          <img v-if="!currentCity" src="../../public/arrow.svg" alt="" class="area-arrow" :class="{active: countySelectionOpen}">
+          <img v-else src="../../public/arrow-active.svg" alt="" class="area-arrow" :class="{active: countySelectionOpen}">
+          <span v-if="!currentCounty">選擇區域</span>
+          <span v-else>{{ currentCounty }}</span>
+          <ul class="option" v-show="countySelectionOpen">
+            <li 
+              v-for="(county,index) in countyData" 
+              :key="county.name" 
+              @click="selectCounty(county.name, index)"
+            >
+              {{ county.name }}
+            </li>
+          </ul>
         </div>
       </div>
       <div class="candidate-all">
@@ -55,10 +66,36 @@ export default {
     const currentCity = ref("");
     const selectCity = (city) => {
       currentCity.value = city;
-      store.dispatch("fetchData", transformName(city));
+      currentCounty.value = null;
+      store.dispatch("fetchData", {fileName: transformName(city), isCity: true});
     }
+    const countySelectionOpen = ref(false);
+    const openCountySelection = () => {
+      if (currentCity.value) {
+        countySelectionOpen.value = !countySelectionOpen.value;
+      }
+    }
+    const currentCounty = ref("");
+    const selectCounty = (county, index) => {
+      currentCounty.value = county;
+      const start = countyData.value[index].name;
+      let end;
+      if (index === countyData.value.length -1) {
+        end = "";
+      } else {
+        end = countyData.value[index+1].name;
+      }
+      store.dispatch("fetchData", {fileName: transformName(currentCity.value), isCity: false, county: [start, end]});
+    }
+
+
+
+
     const allData = computed(() => {
       return store.state.allData;
+    })
+    const countyData = computed(() => {
+      return store.state.countyData;
     })
 
     // 處理各政黨的得票率數字
@@ -94,16 +131,21 @@ export default {
 
 
     onMounted(() => {
-      store.dispatch("fetchData", "all");
+      store.dispatch("fetchData", {fileName: "all", isCity: true});
     })
     
     return { 
       allData,
+      countyData,
       cities,
       citySelectionOpen,
+      countySelectionOpen,
       openCitySelection,
+      openCountySelection,
       selectCity,
+      selectCounty,
       currentCity,
+      currentCounty,
       candidateVoteRation,
     };
   },

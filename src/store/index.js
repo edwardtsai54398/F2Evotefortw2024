@@ -1,15 +1,23 @@
 import { createStore } from 'vuex'
+import { findCountyIndex } from '../utils/method';
 
 export default createStore({
     state: {
         allData: [],
+        countyData: [],
         taiwanResults: {},
+        isCity: false,
+        countyStart: null,
+        countyEnd: null,
     },
     getters: {
     },
     mutations: {
         setAllData(state, data) {
             state.allData = data;
+        },
+        setCountyData(state, data) {
+            state.countyData = data;
         },
         setTaiwanResults(state, data) {
             const sum = data[0].vote["民進黨"] + data[0].vote["國民黨"] + data[0].vote["親民黨"];
@@ -18,27 +26,60 @@ export default createStore({
                 blue: Math.round((data[0].vote["國民黨"] / sum).toFixed(2) * 100),
                 orange: Math.round((data[0].vote["親民黨"] / sum).toFixed(2) * 100),
             };
-        }
+        },
+        setIsCity(state, data) {
+            state.isCity = data;
+        },
+        setCountyStartEnd(state, data) {
+            state.countyStart = data[0];
+            state.countyEnd = data[1];
+        },
     },
     actions: {
-        filterData({ commit }, data) {
+        filterData({ commit, state }, data) {
             let newData = [];
-            data.forEach((item) => {
-                newData.push({
-                    name: item["行政區別"],
-                    vote: {
-                        "民進黨": parseInt(item["民進黨"].replaceAll(",", "")),
-                        "國民黨": parseInt(item["國民黨"].replaceAll(",", "")),
-                        "親民黨": parseInt(item["親民黨"].replaceAll(",", "")),
-                    }
+            if (state.isCity) {
+                data.forEach((item) => {
+                    newData.push({
+                        name: item["行政區別"],
+                        vote: {
+                            "民進黨": parseInt(item["民進黨"].replaceAll(",", "")),
+                            "國民黨": parseInt(item["國民黨"].replaceAll(",", "")),
+                            "親民黨": parseInt(item["親民黨"].replaceAll(",", "")),
+                        }
+                    })
                 })
-            })
+                commit("setCountyData", newData);
+            } else {
+                const indexArray = findCountyIndex(data, state.countyStart, state.countyEnd);
+                const spliceData = data.splice(indexArray[0], indexArray[1]-indexArray[0]);
+                spliceData.forEach((item) => {
+                    newData.push({
+                        name: item["村里別"],
+                        vote: {
+                            "民進黨": parseInt(item["民進黨"].replaceAll(",", "")),
+                            "國民黨": parseInt(item["國民黨"].replaceAll(",", "")),
+                            "親民黨": parseInt(item["親民黨"].replaceAll(",", "")),
+                        }
+                    })
+                })
+            }
             const all = newData.splice(0, 1);
             commit("setAllData", newData);
             commit("setTaiwanResults", all);
         },
-        fetchData({ dispatch}, file) {
-            fetch(`/json/${file}.json`)
+        fetchData({ dispatch, commit, state}, file) {
+            commit("setIsCity", file.isCity);
+            if (file?.county) {
+                commit("setCountyStartEnd", file.county);
+            }
+            let url;
+            if (state.isCity) {
+                url = '/json/';
+            } else {
+                url = 'json/county/';
+            }
+            fetch(`${url}${file.fileName}.json`)
                 .then((res) => {
                     return res.json();
                 })
