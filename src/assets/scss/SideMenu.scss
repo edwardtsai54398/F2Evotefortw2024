@@ -9,6 +9,7 @@
     background: linear-gradient(180deg, #0D2562 0%, #4F6190 100%);
     border-radius: 14px 14px 30px 30px;
     padding: 15px 10px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
     .selection {
       position: relative;
       display: flex;
@@ -23,10 +24,14 @@ linear-gradient(0deg, #0D2562, #0D2562);
       appearance: none;
       width: 45%;
       font-size: 14px;
+      z-index: 100;
     }
     .city.on {
       background: rgba(255, 245, 217, 1);
       border-radius: 6px 6px 0 0;
+    }
+    .area span {
+      
     }
     .option {
       position: absolute;
@@ -48,35 +53,66 @@ linear-gradient(0deg, #0D2562, #0D2562);
     .city-arrow {
       position: absolute;
       z-index: 1;
-      left: 130px;
       top: 15px;
+      right: 13px;
       width: 8px;
     }
     .area-arrow {
       position: absolute;
       z-index: 1;
-      right: 20px;
+      right: 13px;
       top: 15px;
       width: 8px;
     }
-    ::-webkit-scrollbar {
-      width: 5px;
+    .city-arrow.active, .area-arrow.active {
+      rotate: 180deg;
     }
-    ::-webkit-scrollbar-track {
-      background: #f1f1f1; 
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #888; 
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #555; 
+    .candidate-all {
+      padding: 15px 18px 0 10px;
+      .candidate {
+        display: flex;
+        align-items: center;
+        position: relative;
+        &:not(:last-child) {
+          margin-bottom: 17px;
+        }
+      }
+      .decoration {
+        max-width: 100px;
+        white-space: nowrap;
+        overflow: hidden;
+        margin: auto;
+      }
+      img {
+        width: 35px;
+        height: 35px;
+        margin-right: 17px;
+      }
+      span {
+        color: rgba(254, 251, 243, 1);
+      }
+      .green {
+        color: rgba(116, 156, 116, 1);
+      }
+      .blue {
+        color: rgba(140, 181, 219, 1);
+      }
+      .orange {
+        color: rgba(255, 176, 134, 1);
+      }
     }
   }
   .each-area-ratio {
+    max-height: 420px;
+    padding: 15px 25px 0;
+    font-size: 14px;
+    color: rgba(172, 172, 172, 1);
+    overflow-y: auto;
     .title {
       width: 100%;
       display: flex;
       justify-content: space-between;
+      margin-bottom: 15px;
     }
     span {
       color: rgba(172, 172, 172, 1);
@@ -88,5 +124,17 @@ linear-gradient(0deg, #0D2562, #0D2562);
         width: 70%;
       }
     }
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(217, 217, 217, 1); 
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
   }
 }

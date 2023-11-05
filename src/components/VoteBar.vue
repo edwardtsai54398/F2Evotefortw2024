@@ -87,11 +87,13 @@ export default {
   margin-bottom: 20px;
   .title {
     width: 20%;
-    font-size: 30px;
+    font-size: 16px;
+    font-weight: bold;
     color: rgba(61, 61, 61, 1);
   }
   .bar-ratio {
     width: 70%;
+    height: 16px;
     display: flex;
     border-radius: 10px;
     overflow: hidden;

@@ -2,7 +2,6 @@
 import { ref, onMounted, nextTick } from "vue";
 import * as d3 from "d3";
 import * as topojson from "topojson-client";
-import VoteBar from "@/components/VoteBar.vue";
 import SideMenu from "@/components/SideMenu.vue";
 
 const taiwanMapData = ref([]);
