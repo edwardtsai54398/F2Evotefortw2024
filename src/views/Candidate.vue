@@ -14,7 +14,7 @@ const count = ref(0)
 </style> -->
 <script>
 import { ref, toRefs, onMounted } from "vue";
-import { candidates } from "../data";
+import { candidates } from "../candidate_data";
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 
@@ -43,14 +43,25 @@ export default {
   <div class="candidate" v-if="candidate">
     <Header />
     <h1>中華民國第十五任總統暨副總統選舉 / {{ candidate.name }}</h1>
+    <!-- grid 排版 -->
     <div class="grid_container">
+      <!-- 圖片 -->
       <div class="container_pic">
         <div class="pic"><img :src="candidate.image" alt="" /></div>
       </div>
+      <!-- 關於 -->
       <div class="container_about">
         <p>{{ candidate.description }}</p>
       </div>
-      <div class="container_experience">Item 3</div>
+      <!-- 經歷 -->
+      <div class="container_experience">
+        <ul>
+          <li v-for="(item, index) in candidate.experience" :key="index">
+            {{ item }}
+          </li>
+        </ul>
+      </div>
+      <!-- 對手 -->
       <div class="container_opponents">Item 4</div>
     </div>
     <Footer />

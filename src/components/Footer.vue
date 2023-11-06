@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <p>©2023 by Legislator Lo Chih-Cheng</p>
+    <p>Copyright © 2023 總統即時開票全台地圖本網站 The F2E所有</p>
   </footer>
 </template>
 

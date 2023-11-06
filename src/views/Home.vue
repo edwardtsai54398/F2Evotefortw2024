@@ -1,7 +1,38 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 
-const count = ref(0);
+// 定義目標日期
+const targetDate = new Date(2024, 0, 13); // 月份是從0開始的，所以1月是0
+// 創建反應性變量來存儲天、時、分、秒
+const days = ref(0);
+const hours = ref(0);
+const minutes = ref(0);
+const seconds = ref(0);
+
+// 更新倒數計時的函數
+const updateCountdown = () => {
+  const now = new Date();
+  const difference = targetDate - now;
+
+  if (difference >= 0) {
+    // 將差異轉換為倒數時間
+    days.value = Math.floor(difference / (1000 * 60 * 60 * 24));
+    hours.value = Math.floor((difference / (1000 * 60 * 60)) % 24);
+    minutes.value = Math.floor((difference / 1000 / 60) % 60);
+    seconds.value = Math.floor((difference / 1000) % 60);
+  }
+};
+
+// 使用生命週期鉤子在掛載時啟動計時器，並在卸載時清理
+let intervalId;
+onMounted(() => {
+  updateCountdown(); // 初始化時立即更新一次
+  intervalId = setInterval(updateCountdown, 1000);
+});
+
+onUnmounted(() => {
+  clearInterval(intervalId);
+});
 </script>
 
 <template>
@@ -30,17 +61,21 @@ const count = ref(0);
             /></router-link>
           </div>
           <div class="go_map">
-            <a href="#"
+            <router-link :to="`/Vote`"
               ><img src="../../public/home/go_map_all.png" alt=""
-            /></a>
+            /></router-link>
           </div>
         </section>
       </main>
       <footer>
         <div class="footer_flex">
-          <img src="../../public/home/calendar.svg" alt="calendar" /><span
-            >2024開票日倒數 87 天 16 時 52 分 31 秒</span
-          >
+          <img src="/home/calendar.svg" alt="calendar" />
+          <span>
+            2024開票日倒數 <span class="timer_bg">{{ days }}</span> 天
+            <span class="timer_bg">{{ hours }}</span> 時
+            <span class="timer_bg">{{ minutes }}</span> 分
+            <span class="timer_bg">{{ seconds }}</span> 秒
+          </span>
         </div>
       </footer>
     </div>
@@ -173,7 +208,8 @@ const count = ref(0);
     }
     footer {
       background: #fefbf3;
-      height: 62px;
+      // height: 62px;
+      padding: 12px;
       .footer_flex {
         display: flex;
         justify-content: center;
@@ -187,6 +223,13 @@ const count = ref(0);
           font-weight: 700;
           letter-spacing: 1.2px;
           margin-left: 12px;
+
+          .timer_bg {
+            background: #0d2562;
+            padding: 0px 8px;
+            border-radius: 3px;
+            color: #fefbf3;
+          }
         }
       }
     }
