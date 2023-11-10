@@ -12,6 +12,7 @@
     "axios": "^1.5.1",
     "d3": "^7.8.5",
     "fetch": "^1.1.0",
+    "gbify-geojson": "^0.2.1",
     "node-fetch": "^3.3.2",
     "topojson-client": "^3.1.0",
     "vue": "^3.3.4",

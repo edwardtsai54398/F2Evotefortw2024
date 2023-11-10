@@ -7,25 +7,29 @@ import SideMenu from "@/components/SideMenu.vue";
 const taiwanMapData = ref([]);
 const cityMapData = ref([]);
 const districtMapData = ref([]);
-
+const mapWidth = ref(600)
+const mapHeight = ref(750)
+const svgScale = ref(1)
 //抓台灣地圖資料
 function getMap(level = "nation", zone = "nation") {
     let file = "";
     if (level === "nation") {
-        file = "nation/COUNTY_MOI_1090820.json";
+        file = "nation/COUNTY_MOI_1121110.json";
     } else if (level === "city") {
-        file = "city/TOWN_MOI_1120825.json";
+        file = "city/TOWN_MOI_1121110.json";
+    } else if (level === "district") {
+        file = "district/VILLAGE_NLSC_121_1120928.json";
     }
 
     d3.json(`public/tw_map/${file}`).then((data) => {
         drawMap("#nation-map", data);
     });
+   
 
     //畫台灣地圖
     let scale = 5500;
     let wWidth = window.innerWidth;
     if (wWidth >= 1280) {
-        // scale = 5500
         scale = 9000;
     } else if (wWidth < 1280 && wWidth >= 768) {
         scale = 7000;
@@ -33,9 +37,8 @@ function getMap(level = "nation", zone = "nation") {
         scale = 5500;
     }
 
-    // let mapWidth = 500
-    // let mapHeight = 650
-    let projection = d3.geoMercator().center([122.3, 24]).scale(scale);
+    
+    let projection = d3.geoMercator().center([122, 24.5]).scale(scale);
     let path = d3.geoPath();
 
     function drawMap(el, data) {
@@ -44,29 +47,43 @@ function getMap(level = "nation", zone = "nation") {
         let mapSelectClass;
         let choosedZoneMapData = [];
         if (level === "nation") {
-            mapData = topojson.feature(data, data.objects.COUNTY_MOI_1090820);
+            // mapData = topojson.feature(data, data.objects.COUNTY_MOI_1090820);
+            mapData = topojson.feature(data, data.objects.COUNTY_MOI_1121110);
             taiwanMapData.value = mapData.features;
-            mapSelectClass = `.county`;
+            mapSelectClass = `.city`;
             choosedZoneMapData = mapData.features;
-            console.log(choosedZoneMapData);
         } else if (level === "city") {
-            mapData = topojson.feature(data, data.objects.TOWN_MOI_1120825);
+            mapData = topojson.feature(data, data.objects.TOWN_MOI_1121110);
             choosedZoneMapData = mapData.features.filter(
                 (district) => district.properties.COUNTYNAME === zone
+                );
+                cityMapData.value = choosedZoneMapData;
+                mapSelectClass = `.district [data-city=${zone}]`;
+            } else if (level === "district") {
+                mapData = topojson.feature(data,data.objects.VILLAGE_NLSC_121_1120928);
+                // mapData = gbify.toWGS84(map)
+            choosedZoneMapData = mapData.features.filter(
+                (village) => village.properties.TOWNNAME === zone
             );
-            cityMapData.value = choosedZoneMapData;
-            mapSelectClass = `.district [data-city=${zone}]`;
+            console.log(choosedZoneMapData);
+            districtMapData.value = choosedZoneMapData;
+            mapSelectClass = `.village [data-district=${zone}]`;
         }
 
         nextTick(() => {
-
             d3map
                 .selectAll(mapSelectClass)
                 .data(choosedZoneMapData)
                 .join("g")
                 .append("path")
                 .attr("d", path.projection(projection))
+                .attr("style", "opacity:1")
                 .on("click", mapZoom);
+            if (level !== "nation") {
+                d3map
+                    .selectAll(`#nation-map .${level}`)
+                    .attr("style", "opacity:0;visibilty:hidden");
+            }
         });
         //事件綁定
         // counties;
@@ -82,15 +99,17 @@ function getMap(level = "nation", zone = "nation") {
 
         function mapZoom(event, d) {
             const [[x0, y0], [x1, y1]] = path.bounds(d);
-
-            // const scale = Math.min(width/(x1 - x0), height/(y1 - y0))*0.8
-            const scale = 1;
+            let targetWidth = x1-x0
+            let targetHeight = y1-y0
+            const scale = Math.min(mapWidth.value/(targetWidth), mapHeight.value/(targetHeight))*0.8
+            svgScale.value = scale
+            // const scale = 1;
             // event.stopPropagation();
             d3.select(this).transition().duration(750).call(
                 zoom.transform,
                 d3.zoomIdentity
-                    // .translate(mapWidth / 2, mapHeight / 2)
-                    .scale(scale),
+                    .translate(-x0-targetWidth/2+(mapWidth.value/2), -y0-targetHeight/2+(mapHeight.value/2)),
+                    // .scale(scale),
                 d3.pointer(event, d3map.node())
             );
         }
@@ -101,79 +120,75 @@ function getMap(level = "nation", zone = "nation") {
 
 //點擊區域顯示投票結果
 function showDistrictOrVilla(ZoneProperties) {
-    if(ZoneProperties.COUNTYNAME && !ZoneProperties.TOWNNAME){
+    console.log(ZoneProperties);
+    if (!ZoneProperties.TOWNNAME) {
         getMap("city", ZoneProperties.COUNTYNAME);
+    } else if (ZoneProperties.TOWNNAME) {
+        getMap("district", ZoneProperties.TOWNNAME);
     }
 }
 
 onMounted(() => {
-    getMap("nation");
+    getMap();
 });
 </script>
 
 <template>
     <div class="vote-page">
-      <h2>歷史開票</h2>
-      <SideMenu />
-      <div class="map">
-          <svg ref="mapRef">
-              <g id="nation-map">
-                  <g
-                      class="county"
-                      v-for="city in taiwanMapData"
-                      :id="city.properties.COUNTYNAME"
-                      :key="city.properties.COUNTYCODE"
-                      @click="showDistrictOrVilla(city.properties)"
-                  >
-                      <title>{{ city.properties.COUNTYNAME }}</title>
-                  </g>
-                  <g class="district">
-                      <g
-                          v-for="district in cityMapData"
-                          :key="district.properties.TOWNCODE"
-                          :id="district.properties.TOWNNAME"
-                          :data-city="district.properties.COUNTYNAME"
-                      >
-                          <title>{{ district.properties.TOWNNAME }}</title>
-                      </g>
-                  </g>
-                  <g class="village">
-                      <g></g>
-                  </g>
-              </g>
-          </svg>
-      </div>
+        <h2>歷史開票</h2>
+        <SideMenu />
+        <div class="map" :style="`width:${mapWidth}px;height:${mapHeight}px`">
+            <svg ref="mapRef" :style="`transform:scale(${svgScale})`">
+                <g id="nation-map">
+                    <g class="city" v-for="city in taiwanMapData" :id="city.properties.COUNTYNAME" :key="city.properties.COUNTYCODE" @click="showDistrictOrVilla(city.properties)">
+                        <title>{{ city.properties.COUNTYENG }}</title>
+                    </g>
+                    <g class="district">
+                        <g v-for="district in cityMapData" :key="district.properties.TOWNCODE" :id="district.properties.TOWNNAME" :data-city="district.properties.COUNTYNAME" @click="showDistrictOrVilla(district.properties)">
+                            <title>{{ district.properties.TOWNNAME }}</title>
+                        </g>
+                    </g>
+                    <g class="village">
+                        <g v-for="village in districtMapData" :key="village.properties.VILLCODE" :id="village.properties.VILLNAME" :data-district="village.properties.TOWNNAME">
+                            <title>{{ village.properties.VILLNAME }}</title>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </div>
     </div>
 </template>
 
 <style lang="scss">
 @import "@/assets/scss/all.scss";
+
 .vote-page {
-  display: flex;
-  max-width: 1280px;
+    display: flex;
+    max-width: 1280px;
 }
+
 .d-flex {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .map {
-    width: 70%;
-    // overflow: hidden;
-    height: 650px;
-    width: 500px;
     border: 1px solid #000;
     position: relative;
-    & > svg {
+
+    &>svg {
         display: block;
         width: 100%;
         height: 100%;
     }
+
     #nation-map {
         display: block;
         height: 100%;
         width: 100%;
     }
+
     &::before {
         content: "";
         display: block;
@@ -186,19 +201,24 @@ onMounted(() => {
         z-index: 2;
     }
 }
-.county {
+
+.city,
+.village>g {
     stroke: $bg;
     stroke-width: 0.5;
     fill: $green;
+    transition: 0.5s;
+
     &:hover {
         fill: $blue-d;
         cursor: pointer;
     }
-    
 }
+
 .district {
     stroke: $bg;
     stroke-width: 0.5;
     fill: $blue-l;
+    transition: 0.5s;
 }
 </style>
