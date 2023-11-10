@@ -51,7 +51,7 @@ import { ref, reactive, onMounted, computed } from "vue";
 import VoteBar from "./VoteBar.vue";
 import { useStore } from "vuex";
 import { transformName } from "../utils/method";
-import { candidates } from '../data';
+// import { candidates } from '../data';
 export default {
   name: "SideMenu",
   components: { VoteBar },
