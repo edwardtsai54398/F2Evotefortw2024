@@ -119,10 +119,10 @@ onUnmounted(() => {
       max-width: 1280px;
       width: 100%;
       margin: auto;
-      a {
-        img {
-        }
-      }
+      // a {
+      //   img {
+      //   }
+      // }
     }
     main {
       max-width: 1000px;
