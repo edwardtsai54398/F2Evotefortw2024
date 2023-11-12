@@ -73,8 +73,11 @@ export const findCountyIndex = (data, start, end) => {
   const startIndex = data.findIndex((el) => {
     return el["行政區別"] === start;
   });
-  const endIndex = data.findIndex((el) => {
+  let endIndex = data.findIndex((el) => {
     return el["行政區別"] === end;
   });
+  if (endIndex === -1) {
+    endIndex = data.length;
+  }
   return [startIndex, endIndex];
 }

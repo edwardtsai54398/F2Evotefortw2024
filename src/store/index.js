@@ -75,9 +75,9 @@ export default createStore({
             }
             let url;
             if (state.isCity) {
-                url = '/json/';
+                url = '/2020_president/city/';
             } else {
-                url = 'json/county/';
+                url = '/2020_president/district/';
             }
             fetch(`${url}${file.fileName}.json`)
                 .then((res) => {
