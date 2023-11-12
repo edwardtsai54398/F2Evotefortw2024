@@ -31,6 +31,7 @@ footer {
     font-weight: 400;
     text-align: center;
     margin: 0;
+    // padding: 0;
     padding: 8px 20px;
     // line-height: 35px;
   }
