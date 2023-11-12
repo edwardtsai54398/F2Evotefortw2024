@@ -3,7 +3,7 @@
     <nav>
       <router-link to="/" class="logo">
         <!-- 假設LOGO.svg在public目錄下 -->
-        <img src="/LOGO.svg" alt="Logo" />
+        <img src="/image/LOGO.svg" alt="Logo" />
       </router-link>
       <h1>總統大選開票</h1>
       <button @click="toggleMenu" class="hamburger" v-show="isMobile">
