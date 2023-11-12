@@ -1,0 +1,123 @@
+.vote-page {
+  .main-title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 0 10px;
+    .title {
+      text-align: center;
+      span {
+        display: block;
+        background: linear-gradient(180deg, #0D2562 -28.5%, rgba(13, 37, 98, 0.6) 103.93%);
+        color: transparent;
+        background-clip: text;
+        -webkit-background-clip: text;
+        position: relative;
+        &:first-child {
+          font-size: 85px;
+          &::after {
+            content: '2020';
+            position: absolute;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(13, 37, 98, 1);
+            ;
+            left: 1px;
+            top: 1px;
+          }
+        }
+        &:last-child {
+          font-size: 50px;
+          &::after {
+            content: '總統大選';
+            position: absolute;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(13, 37, 98, 1);
+            ;
+            left: -2px;
+            top: 1px;
+          }
+        }
+      }
+    }
+  }
+  .year-selection {
+    margin: 50px 12px 0 0;
+    position: relative;
+    padding: 5px 0;
+    &::after {
+      content: '';
+      position: absolute;
+      background: linear-gradient(90deg, #0D2562 0%, rgba(13, 37, 98, 0.2) 117.09%);
+      right: -10px;
+      top: 0;
+      width: 1px;
+      height: 100%;
+    }
+    li {
+      width: 63px;
+      position: relative;
+      text-align: center;
+      padding: 8px 0;
+      background: rgba(13, 37, 98, 1);
+      border-radius: 100px;
+      &:not(:last-child) {
+        margin-bottom: 35px;
+      }
+    }
+    button {
+      color: #fff;
+      font-weight: 700;
+      font-size: 18px;
+      outline: none;
+      border: none;
+      background: transparent;
+      &.active {
+        color: rgba(13, 37, 98, 1);
+        border: none;
+      }
+    }
+    .active {
+      border: 2px solid rgba(13, 37, 98, 1);
+      background: rgba(254, 251, 243, 1);
+    }
+  }
+  .decoration {
+    position: absolute;
+    right: -14px;
+    top: 13px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(73, 89, 129, 1);
+    &.deco-active {
+      background-color: rgba(13, 37, 98, 1);
+      right: -15px;
+    }
+  }
+  .party-symbol {
+    li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &:not(:last-child) {
+        margin-bottom: 12px;
+      }
+      &:nth-of-type(1)span {
+        background-color: rgba(140, 181, 219, 1);
+      }
+      &:nth-of-type(2)span {
+        background-color: rgba(116, 156, 116, 1)
+      }
+      &:nth-of-type(3)span {
+        background-color: rgba(255, 176, 134, 1)
+      }
+    }
+    span {
+      width: 20px;
+      height: 20px;
+      margin-right: 12px;
+      border-radius: 50%;
+      display: block;
+    }
+  }
+}

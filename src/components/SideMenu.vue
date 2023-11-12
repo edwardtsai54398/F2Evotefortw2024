@@ -3,7 +3,7 @@
     <div class="top-navgation">
       <div class="selection">
         <div class="city" @click="openCitySelection" :class="{on: citySelectionOpen}">
-          <img src="../../public/arrow-active.svg" alt="" class="city-arrow" :class="{active: citySelectionOpen}">
+          <img src="../../public/image/arrow-active.svg" alt="" class="city-arrow" :class="{active: citySelectionOpen}">
           <span v-if="!currentCity">選擇縣市</span>
           <span v-else>{{ currentCity }}</span>
           <ul class="option" v-show="citySelectionOpen">
@@ -11,8 +11,8 @@
           </ul>
         </div>
         <div class="area" @click="openCountySelection" :class="{on: countySelectionOpen}">
-          <img v-if="!currentCity" src="../../public/arrow.svg" alt="" class="area-arrow" :class="{active: countySelectionOpen}">
-          <img v-else src="../../public/arrow-active.svg" alt="" class="area-arrow" :class="{active: countySelectionOpen}">
+          <img v-if="!currentCity" src="../../public/image/arrow.svg" alt="" class="area-arrow" :class="{active: countySelectionOpen}">
+          <img v-else src="../../public/image/arrow-active.svg" alt="" class="area-arrow" :class="{active: countySelectionOpen}">
           <span v-if="!currentCounty">選擇區域</span>
           <span v-else>{{ currentCounty }}</span>
           <ul class="option" v-show="countySelectionOpen">
@@ -112,19 +112,19 @@ export default {
       {
         name: "蔡英文",
         ration: green,
-        imgUrl: '../../public/candidate/tsai.png',
+        imgUrl: '../../public/image/candidate/tsai.png',
         class: "green",
       },
       {
         name: "韓國瑜",
         ration: blue,
-        imgUrl: '../../public/candidate/han.png',
+        imgUrl: '../../public/image/candidate/han.png',
         class: "blue",
       },
       {
         name: "宋楚瑜",
         ration: orange,
-        imgUrl: '../../public/candidate/song.png',
+        imgUrl: '../../public/image/candidate/song.png',
         class: "orange",
       },
     ]);
