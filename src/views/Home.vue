@@ -69,7 +69,7 @@ onUnmounted(() => {
       </main>
       <footer>
         <div class="footer_flex">
-          <img src="/image/home/calendar.svg" alt="calendar" />
+          <img class="icon" src="/image/home/calendar.svg" alt="calendar" />
           <span>
             2024開票日倒數 <span class="timer_bg">{{ days }}</span> 天
             <span class="timer_bg">{{ hours }}</span> 時
@@ -119,14 +119,15 @@ onUnmounted(() => {
       max-width: 1280px;
       width: 100%;
       margin: auto;
+      padding: 20px 0;
       // a {
       //   img {
       //   }
       // }
     }
     main {
-      max-width: 1000px;
-      width: 100%;
+      min-width: 1000px;
+      // width: 100%;
       margin: auto;
       flex-grow: 1;
       .txt {
@@ -137,6 +138,7 @@ onUnmounted(() => {
         line-height: 50px;
         letter-spacing: 1.5px;
         text-align: right;
+        opacity: 0.4;
       }
 
       .player_list {
@@ -145,8 +147,8 @@ onUnmounted(() => {
         grid-template-columns: repeat(9, 1fr);
         gap: 20px;
         text-align: center;
-        max-width: 1000px;
-        width: 100%;
+        width: 1000px;
+        // width: 100%;
         margin: auto;
 
         .player_1 {
@@ -216,18 +218,25 @@ onUnmounted(() => {
         align-items: center;
         height: 100%;
 
+        .icon {
+          margin-right: 12px;
+        }
+
         span {
           color: var(--background, #0d2562);
           font-family: Noto Sans TC;
           font-size: 24px;
           font-weight: 700;
-          letter-spacing: 12px;
-          margin-left: 8px;
-          margin-right: 8px;
+          letter-spacing: 8px;
+          // margin-left: 8px;
+          // margin-right: 8px;
+          // text-align: center;
 
           .timer_bg {
             background: #0d2562;
-            padding: 0px 8px;
+            // padding: 0px 8px;
+            padding-left: 10px;
+            padding-right: 3px;
             border-radius: 3px;
             color: #fefbf3;
           }

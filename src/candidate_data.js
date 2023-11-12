@@ -1,4 +1,4 @@
-// src/data.js
+// src/candidate_data.js
 export const candidates = {
   1: {
     id: "1",
@@ -28,10 +28,21 @@ export const candidates = {
       "總統府資政（2016-2019）",
     ],
     opponents: [
-      { name: "蔡英文", image: "/image/candidate/2_photo.png" },
-      { name: "韓國魚", image: "/image/candidate/3_photo.png" },
+      {
+        name: "蔡英文",
+        image: "/image/candidate/2_photo.png",
+        link: "/candidate/2",
+      },
+      {
+        name: "韓國魚",
+        image: "/image/candidate/3_photo.png",
+        link: "/candidate/3",
+      },
     ],
-    image: "/image/candidate/1_player.png",
+    image: {
+      web: "/image/candidate/1_player.png",
+      mb: "/image/candidate/1_player_m.png",
+    },
     description: "Description for Candidate 1",
   },
   2: {
@@ -63,10 +74,21 @@ export const candidates = {
       // ...其他經驗資訊行
     ],
     opponents: [
-      { name: "宋楚魚", image: "/image/candidate/1_photo.png" },
-      { name: "韓國魚", image: "/image/candidate/3_photo.png" },
+      {
+        name: "宋楚魚",
+        image: "/image/candidate/1_photo.png",
+        link: "/candidate/1",
+      },
+      {
+        name: "韓國魚",
+        image: "/image/candidate/3_photo.png",
+        link: "/candidate/3",
+      },
     ],
-    image: "/image/candidate/2_player.png",
+    image: {
+      web: "/image/candidate/2_player.png",
+      mb: "/image/candidate/2_player_m.png",
+    },
     description: "Description for Candidate 2",
   },
   3: {
@@ -93,10 +115,21 @@ export const candidates = {
       // ...其他經驗資訊行
     ],
     opponents: [
-      { name: "宋楚魚", image: "/image/candidate/1_photo.png" },
-      { name: "蔡英文", image: "/image/candidate/2_photo.png" },
+      {
+        name: "宋楚魚",
+        image: "/image/candidate/1_photo.png",
+        link: "/candidate/1",
+      },
+      {
+        name: "蔡英文",
+        image: "/image/candidate/2_photo.png",
+        link: "/candidate/2",
+      },
     ],
-    image: "/image/candidate/3_player.png",
+    image: {
+      web: "/image/candidate/3_player.png",
+      mb: "/image/candidate/3_player_m.png",
+    },
     description: "Description for Candidate 3",
   },
   // ...其他候選人數據

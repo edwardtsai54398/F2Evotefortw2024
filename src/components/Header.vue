@@ -53,33 +53,45 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/scss/all.scss";
+
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 60px;
-  margin: -8px !important;
+  margin-top: -8px !important;
   margin-bottom: 0 !important;
-  background-color: #0d2562;
-  color: #fff;
+  background-color: $blue-d;
+  color: $bg;
+  width: 100%;
 
   nav {
     display: flex;
     align-items: center;
+    padding: 0 40px;
+
+    @media (max-width: 767px) {
+      padding: 0 16px;
+    }
+
     .logo {
       img {
-        height: 50px;
+        height: 60px;
       }
     }
     h1 {
       line-height: 60px;
       margin: 0;
       margin-left: 12px;
-      color: #fff;
+      color: $bg;
       font-family: Noto Sans TC;
       font-size: 20px;
       font-weight: 700;
       letter-spacing: 1.2px;
+      @media (max-width: 767px) {
+        display: none;
+      }
     }
     .hamburger {
       display: none; // 預設隱藏
@@ -95,7 +107,7 @@ header {
         display: block;
         width: 25px;
         height: 3px;
-        background-color: #000;
+        background-color: $bg;
         margin: 5px 0;
         border-radius: 4px;
         transition: all 0.3s;
@@ -107,13 +119,13 @@ header {
       margin-left: auto;
 
       a {
-        color: #0d2562;
+        color: $bg;
         text-decoration: none;
         padding: 10px 15px;
 
-        &:hover {
-          background-color: #5b72ad79;
-        }
+        // &:hover {
+        //   background-color: #5b72ad79;
+        // }
       }
       // 小於768px寬度時適應手機版樣式
       @media (max-width: 767px) {
@@ -123,7 +135,7 @@ header {
         right: -100%;
         width: 30%;
         height: 100vh;
-        background: #fefbf3;
+        background: $blue-d;
         transition: right 1.5s ease-in-out;
         padding-top: 60px;
         box-shadow: -1px 0 8px #0d256213;
@@ -131,6 +143,8 @@ header {
         a {
           padding: 20px;
           border-bottom: 1px solid #708bcf8c;
+          font-size: 18px;
+          font-weight: 500;
         }
       }
     }

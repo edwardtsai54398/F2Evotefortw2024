@@ -18,16 +18,21 @@ export default {
 <style lang="scss" scoped>
 footer {
   background: #0d2562;
-  height: 35px;
-  margin: -8px !important;
-}
-p {
-  color: #fefbf3;
-  font-family: Inter;
-  font-size: 14px;
-  font-weight: 400;
-  text-align: center;
-  margin: 0;
-  line-height: 35px;
+  // height: 35px;
+  // padding: 16px;
+  // margin: 0 -8px !important;
+  margin-bottom: -13px !important;
+  display: flex;
+  width: 100%;
+
+  p {
+    color: #fefbf3;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    margin: 0;
+    padding: 8px 20px;
+    // line-height: 35px;
+  }
 }
 </style>
