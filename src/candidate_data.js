@@ -3,7 +3,7 @@ export const candidates = {
   1: {
     id: "1",
     name: "宋楚魚",
-    party_image: "/candidate/1_politics.png",
+    party_image: "/image/candidate/1_politics.png",
     party: "親民黨",
     partner: "余湘 (無黨籍)",
     background: "政治界：公職、國際關係研究員",
@@ -28,16 +28,16 @@ export const candidates = {
       "總統府資政（2016-2019）",
     ],
     opponents: [
-      { name: "蔡英文", image: "/candidate/2_photo.png" },
-      { name: "韓國魚", image: "/candidate/3_photo.png" },
+      { name: "蔡英文", image: "/image/candidate/2_photo.png" },
+      { name: "韓國魚", image: "/image/candidate/3_photo.png" },
     ],
-    image: "/candidate/1_player.png",
+    image: "/image/candidate/1_player.png",
     description: "Description for Candidate 1",
   },
   2: {
     id: "2",
     name: "菜英文",
-    party_image: "/candidate/2_politics.png",
+    party_image: "/image/candidate/2_politics.png",
     party: "民主進步黨",
     partner: "賴青德 (民主進步黨)",
     background: "政治界：大學教授、國際談判代表",
@@ -63,16 +63,16 @@ export const candidates = {
       // ...其他經驗資訊行
     ],
     opponents: [
-      { name: "宋楚魚", image: "/candidate/1_photo.png" },
-      { name: "韓國魚", image: "/candidate/3_photo.png" },
+      { name: "宋楚魚", image: "/image/candidate/1_photo.png" },
+      { name: "韓國魚", image: "/image/candidate/3_photo.png" },
     ],
-    image: "/candidate/2_player.png",
+    image: "/image/candidate/2_player.png",
     description: "Description for Candidate 2",
   },
   3: {
     id: "3",
     name: "韓國魚",
-    party_image: "/candidate/3_politics.png",
+    party_image: "/image/candidate/3_politics.png",
     party: "中國國民黨",
     partner: "張善政 (無黨籍)",
     background: "政治界：民意代表",
@@ -93,10 +93,10 @@ export const candidates = {
       // ...其他經驗資訊行
     ],
     opponents: [
-      { name: "宋楚魚", image: "/candidate/1_photo.png" },
-      { name: "蔡英文", image: "/candidate/2_photo.png" },
+      { name: "宋楚魚", image: "/image/candidate/1_photo.png" },
+      { name: "蔡英文", image: "/image/candidate/2_photo.png" },
     ],
-    image: "/candidate/3_player.png",
+    image: "/image/candidate/3_player.png",
     description: "Description for Candidate 3",
   },
   // ...其他候選人數據

@@ -40,36 +40,36 @@ onUnmounted(() => {
     <!-- <img src="../../public/home/bg.png" alt="" /> -->
     <div class="home">
       <header>
-        <a href="#"><img src="../../public/LOGO.svg" alt="Logo" /></a>
+        <a href="#"><img src="/image/LOGO.svg" alt="Logo" /></a>
       </header>
       <main>
         <div class="txt">TAIWAN Presidential Election</div>
         <section class="player_list">
           <div class="player_1">
             <router-link :to="`/candidate/1`"
-              ><img src="../../public/home/player_1_all.png" alt=""
+              ><img src="/image/home/player_1_all.png" alt=""
             /></router-link>
           </div>
           <div class="player_2">
             <router-link :to="`/candidate/2`"
-              ><img src="../../public/home/player_2_all.png" alt=""
+              ><img src="/image/home/player_2_all.png" alt=""
             /></router-link>
           </div>
           <div class="player_3">
             <router-link :to="`/candidate/3`"
-              ><img src="../../public/home/player_3_all.png" alt=""
+              ><img src="/image/home/player_3_all.png" alt=""
             /></router-link>
           </div>
           <div class="go_map">
             <router-link :to="`/Vote`"
-              ><img src="../../public/home/go_map_all.png" alt=""
+              ><img src="/image/home/go_map_all.png" alt=""
             /></router-link>
           </div>
         </section>
       </main>
       <footer>
         <div class="footer_flex">
-          <img src="/home/calendar.svg" alt="calendar" />
+          <img src="/image/home/calendar.svg" alt="calendar" />
           <span>
             2024開票日倒數 <span class="timer_bg">{{ days }}</span> 天
             <span class="timer_bg">{{ hours }}</span> 時
@@ -103,7 +103,7 @@ onUnmounted(() => {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("../../public/home/bg.png");
+    background-image: url("/image/home/bg.png");
     background-size: cover;
     z-index: -1;
   }
@@ -221,8 +221,9 @@ onUnmounted(() => {
           font-family: Noto Sans TC;
           font-size: 24px;
           font-weight: 700;
-          letter-spacing: 1.2px;
-          margin-left: 12px;
+          letter-spacing: 12px;
+          margin-left: 8px;
+          margin-right: 8px;
 
           .timer_bg {
             background: #0d2562;
