@@ -48,9 +48,10 @@
 </template>
 <script>
 import { ref, reactive, onMounted, computed } from "vue";
-import VoteBar from "./VoteBar.vue";
+// import VoteBar from "../../components/VoteBar.vue";
+import VoteBar from "@/components/VoteBar.vue";
 import { useStore } from "vuex";
-import { transformName } from "../utils/method";
+import { transformName } from "../../utils/method";
 // import { candidates } from '../data';
 export default {
   name: "SideMenu",
@@ -66,6 +67,11 @@ export default {
     const currentCity = ref("");
     const selectCity = (city) => {
       currentCity.value = city;
+      //宗驊加這一行
+      store.commit("setCurrentZone", {
+            level: "city",
+            city: city,
+            district: ""})
       currentCounty.value = null;
       store.dispatch("fetchData", {fileName: transformName(city), isCity: true});
     }
@@ -78,6 +84,11 @@ export default {
     const currentCounty = ref("");
     const selectCounty = (county, index) => {
       currentCounty.value = county;
+      //宗驊加這一行
+      store.commit("setCurrentZone", {
+            level: "district",
+            city: currentCity.value,
+            district: county})
       const start = countyData.value[index].name;
       let end;
       if (index === countyData.value.length -1) {

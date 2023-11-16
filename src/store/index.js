@@ -9,6 +9,11 @@ export default createStore({
         isCity: false,
         countyStart: null,
         countyEnd: null,
+        currentZone:{
+            level: "nation",
+            city: "",
+            district: ""
+        }
     },
     getters: {
     },
@@ -34,6 +39,11 @@ export default createStore({
             state.countyStart = data[0];
             state.countyEnd = data[1];
         },
+        setCurrentZone(state, data){
+            state.currentZone.level = data.level
+            state.currentZone.city = data.city
+            state.currentZone.district = data.district
+        }
     },
     actions: {
         filterData({ commit, state }, data) {

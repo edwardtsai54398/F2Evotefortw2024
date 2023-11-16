@@ -17,7 +17,7 @@ const routes = [
   {
     path: '/vote',
     name: 'Vote',
-    component: () => import('@/views/Vote.vue'),
+    component: () => import('@/views/vote/Vote.vue'),
   },
 ];
 const router = createRouter({
