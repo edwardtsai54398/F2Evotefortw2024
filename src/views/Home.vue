@@ -37,7 +37,42 @@ onUnmounted(() => {
 
 <template>
   <!-- 手機版 -->
-  <div class="mb_bg">123</div>
+  <div class="mb_bg">
+    <header>
+      <a href="#"><img src="/image/LOGO.svg" alt="Logo" /></a>
+      <h1>總統大選開票</h1>
+    </header>
+    <main>
+      <div class="player_pic">
+        <img src="/image/home/mb_players.png" alt="" />
+      </div>
+      <div class="plater_name_list">
+        <router-link :to="`/candidate/1`" class="player_name">
+          <img src="/image/home/mb_1_name.png" alt="" />
+        </router-link>
+        <router-link :to="`/candidate/2`" class="player_name">
+          <img src="/image/home/mb_2_name.png" alt="" />
+        </router-link>
+        <router-link :to="`/candidate/3`" class="player_name">
+          <img src="/image/home/mb_3_name.png" alt="" />
+        </router-link>
+      </div>
+      <router-link :to="`/Vote`" class="map_pic"
+        ><img src="/image/home/mb_go_map.svg" alt=""
+      /></router-link>
+    </main>
+    <footer>
+      <div class="footer_flex">
+        <img class="icon" src="/image/home/calendar.svg" alt="calendar" />
+        <span>
+          2024開票日倒數 <span class="timer_bg">{{ days }}</span> 天
+          <!-- <span class="timer_bg">{{ hours }}</span> 時
+          <span class="timer_bg">{{ minutes }}</span> 分
+          <span class="timer_bg">{{ seconds }}</span> 秒 -->
+        </span>
+      </div>
+    </footer>
+  </div>
   <!-- 桌機版 > 1000px -->
   <div class="bg">
     <!-- <img src="../../public/home/bg.png" alt="" /> -->
@@ -92,20 +127,107 @@ onUnmounted(() => {
   display: none;
 }
 .mb_bg {
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  // width: 100vw;
   display: block;
+  padding-top: 40px;
+  position: relative;
+  margin: -8px;
+  overflow: hidden;
   &::before {
     content: "";
     position: absolute;
+    // inset: 0;
     top: 0;
     left: 0;
+
     width: 100%;
     height: 100%;
     background-image: url("/image/home/mb_bg.png");
     background-size: cover;
     z-index: -1;
   }
+
+  header {
+    text-align: center;
+    h1 {
+      color: #fff;
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: 1.2px;
+      margin-top: -8px;
+    }
+  }
+  main {
+    padding-bottom: 24px;
+    .player_pic {
+      margin-top: 20px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .plater_name_list {
+      display: flex;
+      margin: 0 32px;
+      gap: 40px;
+      margin-bottom: 16px;
+      .player_name {
+        flex-grow: 1;
+        img {
+          // width: 77px;
+          // height: 61px;
+          width: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+
+    .map_pic {
+      width: 100%;
+      
+      img {
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+  footer {
+        background: #fefbf3;
+        // height: 62px;
+        padding: 12px;
+        .footer_flex {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+
+          .icon {
+            margin-right: 12px;
+          }
+
+          span {
+            color: var(--background, #0d2562);
+            font-family: Noto Sans TC;
+            font-size: 18px;
+            font-weight: 700;
+            // margin-left: 8px;
+            // margin-right: 8px;
+            // text-align: center;
+
+            .timer_bg {
+              background: #0d2562;
+              // padding: 0px 8px;
+              padding-left: 10px;
+              padding-right: 8px;
+              border-radius: 3px;
+              color: #fefbf3;
+            }
+          }
+        }
+      }
 }
 
 @media (min-width: 1000px) {
@@ -268,6 +390,9 @@ onUnmounted(() => {
         }
       }
     }
+  }
+  .mb_bg {
+    display: none;
   }
 }
 </style>
