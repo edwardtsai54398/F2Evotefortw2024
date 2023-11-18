@@ -2,7 +2,7 @@
 export const candidates = {
   1: {
     id: "1",
-    name: "宋楚魚",
+    name: "喵楚魚",
     party_image: "/image/candidate/1_politics.png",
     party: "親民黨",
     partner: "余湘 (無黨籍)",
@@ -29,12 +29,12 @@ export const candidates = {
     ],
     opponents: [
       {
-        name: "蔡英文",
+        name: "喵英文",
         image: "/image/candidate/2_photo.png",
         link: "/candidate/2",
       },
       {
-        name: "韓國魚",
+        name: "汪國魚",
         image: "/image/candidate/3_photo.png",
         link: "/candidate/3",
       },
@@ -47,7 +47,7 @@ export const candidates = {
   },
   2: {
     id: "2",
-    name: "菜英文",
+    name: "喵英文",
     party_image: "/image/candidate/2_politics.png",
     party: "民主進步黨",
     partner: "賴青德 (民主進步黨)",
@@ -75,12 +75,12 @@ export const candidates = {
     ],
     opponents: [
       {
-        name: "宋楚魚",
+        name: "喵楚魚",
         image: "/image/candidate/1_photo.png",
         link: "/candidate/1",
       },
       {
-        name: "韓國魚",
+        name: "汪國魚",
         image: "/image/candidate/3_photo.png",
         link: "/candidate/3",
       },
@@ -93,7 +93,7 @@ export const candidates = {
   },
   3: {
     id: "3",
-    name: "韓國魚",
+    name: "汪國魚",
     party_image: "/image/candidate/3_politics.png",
     party: "中國國民黨",
     partner: "張善政 (無黨籍)",
@@ -116,12 +116,12 @@ export const candidates = {
     ],
     opponents: [
       {
-        name: "宋楚魚",
+        name: "喵楚魚",
         image: "/image/candidate/1_photo.png",
         link: "/candidate/1",
       },
       {
-        name: "蔡英文",
+        name: "喵英文",
         image: "/image/candidate/2_photo.png",
         link: "/candidate/2",
       },
