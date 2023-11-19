@@ -5,7 +5,7 @@ body {
 
 }
 
-*:not(path), :not(g) {
+*:not(path) {
     box-sizing: border-box;
     letter-spacing: 1px;
     color: $text;

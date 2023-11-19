@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, nextTick, reactive, watch, computed } from "vue";
+import { ref, onMounted, nextTick, reactive, watch } from "vue";
 import * as d3 from "d3";
 import * as topojson from "topojson-client";
 import { useStore } from 'vuex'
@@ -27,7 +27,8 @@ if (wWidth >= 1280) {
 }
 
 //抓台灣地圖資料
-function getMap(callback, level = "nation", zone = "nation") {
+function getMap(level = "nation", zone = "nation") {
+    // console.log(zone);
     let file = "";
     if (level === "nation") {
         file = "nation/COUNTY_MOI_1121110.json";
@@ -37,61 +38,54 @@ function getMap(callback, level = "nation", zone = "nation") {
         file = "district/VILLAGE_NLSC_121_1120928.json";
     }
 
-    let mapData;
-    let choosedZoneMapData = [];
+    d3.json(`public/tw_map/${file}`).then((data) => {
+        drawMap("#nation-map", data);
+    });
 
-    return d3.json(`public/tw_map/${file}`).then((data) => {
+    //畫台灣地圖
+    let projection = d3.geoMercator().center([122, 24.5]).scale(scale);
+    let path = d3.geoPath();
+
+    function drawMap(el, data) {
+        const d3map = d3.select(el);
+        let mapData;
+        let mapSelectClass;
+        let choosedZoneMapData = [];
+        let level = currentLevel.value
         if (level === "nation") {
             mapData = topojson.feature(data, data.objects.COUNTY_MOI_1121110);
             taiwanMapData.value = mapData.features;
+            mapSelectClass = `.city [data-key=taiwan]`;
             choosedZoneMapData = mapData.features;
-
         } else if (level === "city") {
             mapData = topojson.feature(data, data.objects.TOWN_MOI_1121110);
             choosedZoneMapData = mapData.features.filter(
                 (district) => district.properties.COUNTYNAME === zone
             );
             cityMapData.value = choosedZoneMapData;
-
+            mapSelectClass = `.district [data-city=${zone}]`;
         } else if (level === "district") {
             mapData = topojson.feature(data, data.objects.VILLAGE_NLSC_121_1120928);
             choosedZoneMapData = mapData.features.filter((village) => village.properties.TOWNNAME === zone);
             districtMapData.value = choosedZoneMapData;
+            mapSelectClass = `.village [data-district=${zone}]`;
         }
 
-        callback(choosedZoneMapData)
-    })
-
-
-}
-//畫台灣地圖
-let projection = d3.geoMercator().center([122, 24.5]).scale(scale);
-let path = d3.geoPath();
-
-function drawMap(data, zone) {
-    const d3map = d3.select("#nation-map");
-    let mapSelectClass;
-    let level = currentLevel.value
-    if (level === "nation") {
-        mapSelectClass = `.city [data-key=taiwan]`;
-    } else if (level === "city") {
-        mapSelectClass = `.district [data-city=${zone}]`;
-    } else if (level === "district") {
-        mapSelectClass = `.village [data-district=${zone}]`;
+        nextTick(() => {
+            d3map
+                .selectAll(mapSelectClass)
+                .data(choosedZoneMapData)
+                .join("g")
+                .append("path")
+                .attr("d", path.projection(projection))
+                .attr("stroke-width", 1/svgScale.value)
+        });
+        
     }
-    nextTick(() => {
-        d3map
-            .selectAll(mapSelectClass)
-            .data(data)
-            .join("g")
-            .append("path")
-            .attr("d", path.projection(projection))
-            .attr("stroke-width", 1 / svgScale.value)
-    });
-
 }
 
-//點擊區域setCurrentZone
+
+//點擊區域顯示投票結果
 function setCurrentZone(ZoneProperties) {
     if (!ZoneProperties.TOWNNAME) {
         store.commit("setCurrentZone", {
@@ -100,17 +94,18 @@ function setCurrentZone(ZoneProperties) {
             district: ""
         })
     } else if (ZoneProperties.TOWNNAME) {
+        zoomZone(ZoneProperties.TOWNNAME)
         store.commit("setCurrentZone", {
             level: "district",
             city: ZoneProperties.COUNTYNAME,
             district: ZoneProperties.TOWNNAME
         })
-
     }
 }
 //點擊縮放區域
 function zoomZone(zoneName) {
     let zone = document.querySelector(`#${zoneName}`)
+    console.log(zone.getBBox());
     let zoneWidth = zone.getBBox().width
     let zoneHeight = zone.getBBox().height
     let zoneX = zone.getBBox().x
@@ -138,130 +133,46 @@ function zoomToNation() {
     currentLevel.value = "nation"
 }
 onMounted(() => {
-    getMap((mapData) => {
-        drawMap(mapData)
-    });
-
+    getMap();
 });
 
 watch(store.state.currentZone, (newVal) => {
-    console.log(newVal);
     if (currentLevel.value === "district" && newVal.level === "city") {
         districtMapData.value = []
     }
+    currentLevel.value = newVal.level
     if (newVal.level === "nation") {
         zoomToNation()
-        currentLevel.value = newVal.level
     } else if (newVal.level === "city") {
-        getMap((mapData) => {
-            currentLevel.value = newVal.level
-            drawMap(mapData, newVal.city)
-        }, "city", newVal.city);
-
         zoomZone(newVal.city)
+        getMap("city", newVal.city);
     } else if (newVal.level === "district") {
-        getMap((mapData) => {
-            if (mapData.length == 0 || mapData.some((village) => village.properties.VILLNAME === '')) {
-                //顯示沒有村里地理資料、currentLevel維持上一層
-                console.log('沒有村里地理資料');
-            } else {
-                currentLevel.value = newVal.level
-                drawMap(mapData, newVal.district)
-
-
-            }
-            zoomZone(newVal.district)
-
-        }, "district", newVal.district);
-
+        zoomZone(newVal.district)
+        getMap("district", newVal.district);
     }
 })
-
-//計算縣市票選最高
-watch(store.state.allData, (newVal) => {
-    console.log(newVal);
-})
-const findHighestParty = computed(() => {
-    return (zoneName) => {
-        let blue = '#8db5db'
-        let green = '#749c74'
-        let orng = '#ffb086'
-        let gray = '#aaa'
-        console.log(store.state.allData);
-        console.log(zoneName);
-        let zoneVoteData = store.state.allData.find((voteZone) => voteZone.name === zoneName)
-        if(!zoneVoteData){
-            return gray
-        }
-        let vote = zoneVoteData.vote
-        let partyArr = Object.keys(vote)
-        let maxParty = partyArr.reduce((partyFront, partyBehind) =>
-            (vote[partyBehind] > vote[partyFront]) ? partyBehind : partyFront
-            , partyArr[0])
-        // console.log(zoneName, maxParty);
-        switch (maxParty) {
-            case "民進黨":
-                return green;
-            case "國民黨":
-                return blue;
-            case "親民黨":
-                return orng;
-            default:
-                return gray;
-        }
-
-    }
-})
-
-// function findHighestParty(zoneName){
-//     let blue = '#8db5db'
-//     let green = '#749c74'
-//     let orng = '#ffb086'
-//     let gray = '#3d3d3d'
-//     let zoneVoteData = voteData.value.find((voteZone)=> voteZone.name === zoneName)
-//     console.log(zoneVoteData.name);
-//     let vote = zoneVoteData.vote
-//     let partyArr = Object.keys(vote)
-//     let maxParty = partyArr.reduce((partyFront, partyBehind) =>
-//         (vote[partyBehind]>vote[partyFront]) ? partyBehind : partyFront
-//     , partyArr[0])
-//     console.log(zoneName, maxParty);
-//     switch (maxParty) {
-//         case "民進黨":
-//             return green;
-//         case "國民黨":
-//             return blue;
-//         case "親民黨":
-//             return orng;
-//         default:
-//             return gray; // 或其他預設值
-//     }
-// }
 </script>
 
 <template>
     <div class="map" :style="`width:${mapWidth}px;height:${mapHeight}px`">
-        <button class="backto_nation" @click="backtoNation"><img src="/image/Arrows_Lineal.png" alt=""><span>回全國</span></button>
+        <button class="backto_nation" @click="backtoNation"><img src="/images/Arrows_Lineal.png" alt=""><span>回全國</span></button>
         <svg ref="mapRef" :style="`transform:scale(${svgScale})`">
             <g id="nation-map" :style="`transform:translate(${mapTranslate.x}px,${mapTranslate.y}px)`">
                 <g class="city" :class="{ 'current_level': currentLevel === 'nation' }">
-                    <g v-for="city in taiwanMapData" :id="city.properties.COUNTYNAME" data-key="taiwan" :key="city.properties.COUNTYCODE" @click="setCurrentZone(city.properties);"
-                    :fill="findHighestParty(city.properties.COUNTYNAME)">
+                    <g v-for="city in taiwanMapData" :id="city.properties.COUNTYNAME" data-key="taiwan" :key="city.properties.COUNTYCODE" 
+                    @click="setCurrentZone(city.properties);">
                         <title>{{ city.properties.COUNTYNAME }}</title>
-                        
                     </g>
                 </g>
-                <g class="district" :class="{ 'current_level': currentLevel === 'city' }">
-                    <g v-for="district in cityMapData" :key="district.properties.TOWNCODE" :id="district.properties.TOWNNAME" :data-city="district.properties.COUNTYNAME" @click="setCurrentZone(district.properties);"
-                    :fill="findHighestParty(district.properties.TOWNNAME)">
-                        <title>{{ district.properties.TOWNNAME }} </title>
-                        
+                <g class="district" :class="{ 'current_level': currentLevel === 'city' }" >
+                    <g v-for="district in cityMapData" :key="district.properties.TOWNCODE" :id="district.properties.TOWNNAME" :data-city="district.properties.COUNTYNAME" 
+                    @click="setCurrentZone(district.properties);">
+                        <title>{{ district.properties.TOWNNAME }}</title>
                     </g>
                 </g>
-                <g class="village" :class="{ 'current_level': currentLevel === 'district' }">
-                    <g v-for="village in districtMapData" :key="village.properties.VILLCODE" :id="village.properties.VILLNAME" :data-district="village.properties.TOWNNAME"
-                    :fill="findHighestParty(village.properties.VILLNAME)">
-                        <title>{{ village.properties.VILLNAME }}</title>
+                <g class="village" :class="{ 'current_level': currentLevel === 'district' }" >
+                    <g v-for="village in districtMapData" :key="village.properties.VILLCODE" :id="village.properties.VILLNAME" :data-district="village.properties.TOWNNAME">
+                        <title>{{village.properties.VILLNAME}}</title>
                     </g>
                 </g>
             </g>
@@ -291,43 +202,42 @@ const findHighestParty = computed(() => {
         transition: .8s;
     }
 
-    // .city,
-    // .village {
-    //     &>g {
-    //         fill: $green;
+}
 
-    //     }
-    // }
-
-    // .district {
-    //     fill: $blue-l;
-    // }
-
-    .city,
-    .district,
-    .village {
-        opacity: 0.3;
-
-        &>g {
-            stroke: $bg;
-            stroke-width: 0.5;
-            cursor: pointer;
-            transition: 0.5s;
-        }
-
-        &.current_level {
-            opacity: 1;
-
-            &>g:hover {
-                stroke: #000;
-            }
-        }
-
+.city,
+.village {
+    &>g {
+        fill: $green;
 
     }
 }
 
+.district {
+    fill: $blue-l;
+}
 
+.city,
+.district,
+.village {
+    opacity: 0.3;
+
+    &>g {
+        stroke: $bg;
+        stroke-width: 0.5;
+        cursor: pointer;
+        transition: 0.5s;
+    }
+
+    &.current_level {
+        opacity: 1;
+
+        &>g:hover {
+            stroke: #000;
+        }
+    }
+
+
+}
 
 .backto_nation {
     border-radius: 4px;
@@ -348,5 +258,4 @@ const findHighestParty = computed(() => {
         font-size: $xs-font;
         margin-left: $sp1;
     }
-}
-</style>
+}</style>
