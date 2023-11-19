@@ -186,8 +186,8 @@ const findHighestParty = computed(() => {
         let green = '#749c74'
         let orng = '#ffb086'
         let gray = '#aaa'
-        console.log(store.state.allData);
-        console.log(zoneName);
+        // console.log(store.state.allData);
+        // console.log(zoneName);
         let zoneVoteData = store.state.allData.find((voteZone) => voteZone.name === zoneName)
         if (!zoneVoteData) {
             return gray

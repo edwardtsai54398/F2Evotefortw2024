@@ -1,41 +1,39 @@
-.vote-page {
-  .main-title {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    padding: 0 10px;
-    .title {
-      text-align: center;
-      span {
-        display: block;
-        background: linear-gradient(180deg, #0D2562 -28.5%, rgba(13, 37, 98, 0.6) 103.93%);
-        color: transparent;
-        background-clip: text;
-        -webkit-background-clip: text;
-        position: relative;
-        &:first-child {
-          font-size: 85px;
-          &::after {
-            content: '2020';
-            position: absolute;
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(13, 37, 98, 1);
-            ;
-            left: 1px;
-            top: 1px;
-          }
+.main-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 50px 10px;
+  .title {
+    text-align: center;
+    span {
+      display: block;
+      background: linear-gradient(180deg, #0D2562 -28.5%, rgba(13, 37, 98, 0.6) 103.93%);
+      color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;
+      position: relative;
+      &:first-child {
+        font-size: 85px;
+        &::after {
+          content: '2020';
+          position: absolute;
+          color: transparent;
+          -webkit-text-stroke: 1px rgba(13, 37, 98, 1);
+          ;
+          left: 1px;
+          top: 1px;
         }
-        &:last-child {
-          font-size: 50px;
-          &::after {
-            content: '總統大選';
-            position: absolute;
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(13, 37, 98, 1);
-            ;
-            left: -2px;
-            top: 1px;
-          }
+      }
+      &:last-child {
+        font-size: 50px;
+        &::after {
+          content: '總統大選';
+          position: absolute;
+          color: transparent;
+          -webkit-text-stroke: 1px rgba(13, 37, 98, 1);
+          ;
+          left: -2px;
+          top: 1px;
         }
       }
     }
@@ -95,6 +93,7 @@
     }
   }
   .party-symbol {
+    margin-top: auto;
     li {
       display: flex;
       justify-content: center;

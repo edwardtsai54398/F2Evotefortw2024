@@ -3,7 +3,7 @@
     <div class="top-navgation">
       <div class="selection">
         <div class="city" @click="openCitySelection" :class="{on: citySelectionOpen}">
-          <img src="../../public/image/arrow-active.svg" alt="" class="city-arrow" :class="{active: citySelectionOpen}">
+          <img src="../../../public/image/arrow-active.svg" alt="" class="city-arrow" :class="{active: citySelectionOpen}">
           <span v-if="!currentCity">選擇縣市</span>
           <span v-else>{{ currentCity }}</span>
           <ul class="option" v-show="citySelectionOpen">
@@ -11,8 +11,8 @@
           </ul>
         </div>
         <div class="area" @click="openCountySelection" :class="{on: countySelectionOpen}">
-          <img v-if="!currentCity" src="../../public/image/arrow.svg" alt="" class="area-arrow" :class="{active: countySelectionOpen}">
-          <img v-else src="../../public/image/arrow-active.svg" alt="" class="area-arrow" :class="{active: countySelectionOpen}">
+          <img v-if="!currentCity" src="../../../public/image/arrow.svg" alt="" class="area-arrow" :class="{active: countySelectionOpen}">
+          <img v-else src="../../../public/image/arrow-active.svg" alt="" class="area-arrow" :class="{active: countySelectionOpen}">
           <span v-if="!currentCounty">選擇區域</span>
           <span v-else>{{ currentCounty }}</span>
           <ul class="option" v-show="countySelectionOpen">
@@ -47,7 +47,7 @@
   </div>
 </template>
 <script>
-import { ref, reactive, onMounted, computed } from "vue";
+import { ref, reactive, onMounted, computed, watch } from "vue";
 // import VoteBar from "../../components/VoteBar.vue";
 import VoteBar from "@/components/VoteBar.vue";
 import { useStore } from "vuex";
@@ -59,12 +59,28 @@ export default {
   setup() {
     const store = useStore();
 
-    const cities = ["台北市", "新北市", "桃園市", "台中市", "台南市", "高雄市", "基隆市", "新竹市", "新竹縣", "苗栗縣", "彰化縣", "南投縣", "雲林縣", "嘉義市", "嘉義縣", "屏東縣", "台東縣", "花蓮縣", "宜蘭縣", "金門縣", "連江縣", "澎湖縣"];
+    const cities = ["臺北市", "新北市", "桃園市", "臺中市", "臺南市", "高雄市", "基隆市", "新竹市", "新竹縣", "苗栗縣", "彰化縣", "南投縣", "雲林縣", "嘉義市", "嘉義縣", "屏東縣", "臺東縣", "花蓮縣", "宜蘭縣", "金門縣", "連江縣", "澎湖縣"];
     const citySelectionOpen = ref(false);
     const openCitySelection = () => {
       citySelectionOpen.value = !citySelectionOpen.value;
     }
     const currentCity = ref("");
+    watch(store.state.currentZone, (newVal) => {
+      currentCity.value = newVal.city;
+      currentCounty.value = newVal.district;
+      if (newVal.level === "nation") {
+        store.dispatch("fetchData", {fileName: "all", isCity: true});
+      }
+      if (newVal.level === "city") {
+        store.dispatch("fetchData", {fileName: transformName(newVal.city), isCity: true});
+      }
+      if (newVal.level === "district") {
+        const index = countyData.value.findIndex((item) => {
+          return item.name === newVal.district;
+        });
+        selectCounty(newVal.district, index);
+      }
+    });
     const selectCity = (city) => {
       currentCity.value = city;
       //宗驊加這一行
@@ -75,6 +91,7 @@ export default {
       currentCounty.value = null;
       store.dispatch("fetchData", {fileName: transformName(city), isCity: true});
     }
+
     const countySelectionOpen = ref(false);
     const openCountySelection = () => {
       if (currentCity.value) {
@@ -99,9 +116,9 @@ export default {
       store.dispatch("fetchData", {fileName: transformName(currentCity.value), isCity: false, county: [start, end]});
     }
 
-
-
-
+    const currentYear = computed(() => {
+      return store.state.currentYear;
+    })
     const allData = computed(() => {
       return store.state.allData;
     })
@@ -142,6 +159,7 @@ export default {
 
 
     onMounted(() => {
+      store.commit("setCurrentYear", 2020);
       store.dispatch("fetchData", {fileName: "all", isCity: true});
     })
     

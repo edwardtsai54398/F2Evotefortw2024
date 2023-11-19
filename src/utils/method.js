@@ -1,6 +1,6 @@
 export const transformName = (city) => {
   switch (city) {
-    case "台北市":
+    case "臺北市":
       return "taipei";
       break;
     case "新北市":
@@ -9,10 +9,10 @@ export const transformName = (city) => {
     case "桃園市":
       return "taoyuan";
       break;
-    case "台中市":
+    case "臺中市":
       return "taichung";
       break;
-    case "台南市":
+    case "臺南市":
       return "tainan";
       break;
     case "高雄市":
@@ -48,7 +48,7 @@ export const transformName = (city) => {
     case "屏東縣":
       return "pingtung";
       break;
-    case "台東縣":
+    case "臺東縣":
       return "taitung";
       break;
     case "花蓮縣":

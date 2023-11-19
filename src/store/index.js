@@ -13,7 +13,8 @@ export default createStore({
             level: "nation",
             city: "",
             district: ""
-        }
+        },
+        currentYear: null,
     },
     getters: {
     },
@@ -43,6 +44,9 @@ export default createStore({
             state.currentZone.level = data.level
             state.currentZone.city = data.city
             state.currentZone.district = data.district
+        },
+        setCurrentYear(state, year) {
+            state.currentYear = year;
         }
     },
     actions: {
@@ -53,9 +57,9 @@ export default createStore({
                     newData.push({
                         name: item["行政區別"],
                         vote: {
-                            "民進黨": parseInt(item["民進黨"].replaceAll(",", "")),
-                            "國民黨": parseInt(item["國民黨"].replaceAll(",", "")),
-                            "親民黨": parseInt(item["親民黨"].replaceAll(",", "")),
+                            "民進黨": parseInt(String(item["民進黨"]).replaceAll(",", "")),
+                            "國民黨": parseInt(String(item["國民黨"]).replaceAll(",", "")),
+                            "親民黨": parseInt(String(item["親民黨"]).replaceAll(",", "")),
                         }
                     })
                 })
@@ -67,9 +71,9 @@ export default createStore({
                     newData.push({
                         name: item["村里別"],
                         vote: {
-                            "民進黨": parseInt(item["民進黨"].replaceAll(",", "")),
-                            "國民黨": parseInt(item["國民黨"].replaceAll(",", "")),
-                            "親民黨": parseInt(item["親民黨"].replaceAll(",", "")),
+                            "民進黨": parseInt(String(item["民進黨"]).replaceAll(",", "")),
+                            "國民黨": parseInt(String(item["國民黨"]).replaceAll(",", "")),
+                            "親民黨": parseInt(String(item["親民黨"]).replaceAll(",", "")),
                         }
                     })
                 })
@@ -85,9 +89,9 @@ export default createStore({
             }
             let url;
             if (state.isCity) {
-                url = '/2020_president/city/';
+                url = `/${state.currentYear}_president/city/`;
             } else {
-                url = '/2020_president/district/';
+                url = `/${state.currentYear}_president/district/`;
             }
             fetch(`${url}${file.fileName}.json`)
                 .then((res) => {
