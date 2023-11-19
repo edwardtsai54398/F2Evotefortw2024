@@ -187,6 +187,8 @@ onUnmounted(() => {
 
     .map_pic {
       width: 100%;
+      position: relative;
+      left: -5px;
       
       img {
         width: 100%;

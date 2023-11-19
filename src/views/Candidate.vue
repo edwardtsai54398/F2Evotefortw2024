@@ -35,77 +35,81 @@ export default {
 </script>
 
 <template>
-  <div class="candidate" v-if="candidate">
+  <div class="candidate_flex">
     <Header />
-    <h1>中華民國第十五任總統暨副總統選舉 / {{ candidate.name }}</h1>
-    <!-- grid 排版 -->
-    <div class="grid_container">
-      <!-- 圖片 -->
-      <div class="container_pic">
-        <div class="pic">
-          <img class="web" :src="candidate.image.web" alt="候選人照片" />
-          <img class="mb" :src="candidate.image.mb" alt="候選人照片" />
-        </div>
-      </div>
-      <!-- 關於 -->
-      <div class="container_about">
-        <div class="id_name">
-          <div class="id">{{ candidate.id }}</div>
-          <p class="name">{{ candidate.name }}</p>
-        </div>
-        <p class="container_title">政黨</p>
-        <div class="party">
+
+    <div class="candidate" v-if="candidate">
+      <h1>中華民國第十五任總統暨副總統選舉 / {{ candidate.name }}</h1>
+      <!-- grid 排版 -->
+      <div class="grid_container">
+        <!-- 圖片 -->
+        <div class="container_pic">
           <div class="pic">
-            <img :src="candidate.party_image" alt="政黨" />
+            <img class="web" :src="candidate.image.web" alt="候選人照片" />
+            <img class="mb" :src="candidate.image.mb" alt="候選人照片" />
           </div>
-          <p>{{ candidate.party }}</p>
         </div>
-        <p class="container_title">競選搭檔</p>
-        <p>{{ candidate.partner }}</p>
-        <p class="container_title">背景</p>
-        <p>{{ candidate.background }}</p>
-        <p class="container_title">學歷</p>
-        <ul>
-          <li
-            class="list"
-            v-for="(item, index) in candidate.education"
-            :key="index"
-          >
-            {{ item }}
-          </li>
-        </ul>
-      </div>
-      <!-- 經歷 -->
-      <div class="container_experience">
-        <p class="container_title">經歷</p>
-        <ul>
-          <li v-for="(item, index) in candidate.experience" :key="index">
-            {{ item }}
-          </li>
-        </ul>
-      </div>
-      <!-- 對手 -->
-      <div class="container_opponents">
-        <p class="container_title opponents_txt">看其他候選人</p>
-        <div class="opponents_list">
-          <router-link
-            v-for="opponent in candidate.opponents"
-            :key="opponent.name"
-            :to="opponent.link"
-            class="opponents_item"
-          >
+        <!-- 關於 -->
+        <div class="container_about">
+          <div class="id_name">
+            <div class="id">{{ candidate.id }}</div>
+            <p class="name">{{ candidate.name }}</p>
+          </div>
+          <p class="container_title">政黨</p>
+          <div class="party">
             <div class="pic">
-              <img :src="opponent.image" :alt="opponent.name" />
+              <img :src="candidate.party_image" alt="政黨" />
             </div>
-            <p>{{ opponent.name }}</p>
-          </router-link>
+            <p>{{ candidate.party }}</p>
+          </div>
+          <p class="container_title">競選搭檔</p>
+          <p>{{ candidate.partner }}</p>
+          <p class="container_title">背景</p>
+          <p>{{ candidate.background }}</p>
+          <p class="container_title">學歷</p>
+          <ul>
+            <li
+              class="list"
+              v-for="(item, index) in candidate.education"
+              :key="index"
+            >
+              {{ item }}
+            </li>
+          </ul>
+        </div>
+        <!-- 經歷 -->
+        <div class="container_experience">
+          <p class="container_title">經歷</p>
+          <ul>
+            <li v-for="(item, index) in candidate.experience" :key="index">
+              {{ item }}
+            </li>
+          </ul>
+        </div>
+        <!-- 對手 -->
+        <div class="container_opponents">
+          <p class="container_title opponents_txt">看其他候選人</p>
+          <div class="opponents_list">
+            <router-link
+              v-for="opponent in candidate.opponents"
+              :key="opponent.name"
+              :to="opponent.link"
+              class="opponents_item"
+            >
+              <div class="pic">
+                <img :src="opponent.image" :alt="opponent.name" />
+              </div>
+              <p>{{ opponent.name }}</p>
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
+    <div v-else>
+      <p>404 error</p>
+    </div>
+
     <Footer />
-  </div>
-  <div v-else>
-    <p>404 error</p>
   </div>
 </template>
 
@@ -113,162 +117,167 @@ export default {
 @import "@/assets/scss/all.scss";
 // @import "@/assets/scss/page/about.scss";
 // --
-
-.candidate {
-  background: $bg;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  margin: 0 -8px;
-  padding: 0;
-  // width: 100hw;
-  // overflow: hidden;
-
-  h1 {
-    margin-top: 12px;
-    padding: 0 20px;
-    color: $blue-d;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 30px; /* 214.286% */
-    letter-spacing: 0.48px;
-  }
-  .grid_container {
-    flex-grow: 1;
+.candidate_flex {
+    margin: 0 -8px;
+    height: 100%;
+    padding: 0;
+    background: $bg;
     display: flex;
     flex-direction: column;
-    // grid-template-columns: repeat(12, 1fr);
-    gap: 20px;
-    padding: 0 20px;
-    // margin-top: 40px;
+  .candidate {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex-grow: 1;
+    // width: 100hw;
+    // overflow: hidden;
 
-    // NOTE 通用特別提拔到外面
-    .container_title {
+    h1 {
+      margin-top: 12px;
+      padding: 0 20px;
       color: $blue-d;
-      font-size: 18px;
-      font-weight: 500;
-      margin-bottom: 8px;
-      margin-top: 20px;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 30px; /* 214.286% */
+      letter-spacing: 0.48px;
     }
+    .grid_container {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      // grid-template-columns: repeat(12, 1fr);
+      gap: 20px;
+      padding: 0 20px;
+      // margin-top: 40px;
 
-    .container_pic {
-      // grid-column: span 4;
-
-      .pic {
-        width: 100%;
-        // margin-top: -60px;
-        img {
-          width: 100%;
-          height: 100%;
-          vertical-align: top;
-        }
-        .web {
-          display: none;
-        }
-        .mb {
-          display: block;
-        }
-      }
-    }
-
-    .container_about {
-      // grid-column: span 3;
-      .id_name {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-
-        .id {
-          width: 28px;
-          height: 28px;
-          background-color: $blue-d;
-          text-align: center;
-          line-height: 28px;
-          color: $bg;
-          font-size: 20px;
-          font-weight: 700;
-          border-radius: 50%;
-        }
-
-        .name {
-          color: $blue-d;
-
-          /* TC | title2 | 24px | M */
-          font-size: 24px;
-          font-weight: 500;
-          letter-spacing: 0.96px;
-        }
+      // NOTE 通用特別提拔到外面
+      .container_title {
+        color: $blue-d;
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        margin-top: 20px;
       }
 
-      .party {
-        display: flex;
-        gap: 12px;
-        align-items: center;
+      .container_pic {
+        // grid-column: span 4;
 
         .pic {
+          width: 100%;
+          // margin-top: -60px;
           img {
-            vertical-align: middle;
+            width: 100%;
+            height: 100%;
+            vertical-align: top;
+          }
+          .web {
+            display: none;
+          }
+          .mb {
+            display: block;
           }
         }
       }
 
-      ul {
-        list-style: disc;
-        margin-left: 16px;
+      .container_about {
+        // grid-column: span 3;
+        .id_name {
+          display: flex;
+          gap: 12px;
+          align-items: center;
 
-        li {
-          line-height: 26px;
-
-          &::marker {
-            font-size: 0.7em; /* 调整大小 */
-            margin-right: 40px;
-          }
-        }
-      }
-    }
-
-    .container_experience {
-      // grid-column: span 4;
-
-      ul {
-        list-style: disc;
-        margin-left: 16px;
-
-        li {
-          line-height: 26px;
-
-          &::marker {
-            font-size: 0.7em; /* 调整大小 */
-            margin-right: 40px;
-          }
-        }
-      }
-    }
-
-    .container_opponents {
-      // grid-column: span 1;
-      padding-bottom: 40px;
-      .opponents_list {
-        display: flex;
-        gap: 24px;
-        text-align: center;
-        .opponents_item {
-          &:hover .pic img {
+          .id {
+            width: 28px;
+            height: 28px;
             background-color: $blue-d;
+            text-align: center;
+            line-height: 28px;
+            color: $bg;
+            font-size: 20px;
+            font-weight: 700;
+            border-radius: 50%;
           }
+
+          .name {
+            color: $blue-d;
+
+            /* TC | title2 | 24px | M */
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: 0.96px;
+          }
+        }
+
+        .party {
+          display: flex;
+          gap: 12px;
+          align-items: center;
+
           .pic {
             img {
-              width: 100%;
-              height: 100%;
-              border-radius: 50px;
-              border: 1px solid $blue-d;
-              background-color: transparent;
-              object-fit: cover;
-              transition: all 0.4s;
+              vertical-align: middle;
             }
+          }
+        }
 
-            p {
-              font-weight: 500;
+        ul {
+          list-style: disc;
+          margin-left: 16px;
+
+          li {
+            line-height: 26px;
+
+            &::marker {
+              font-size: 0.7em; /* 调整大小 */
+              margin-right: 40px;
+            }
+          }
+        }
+      }
+
+      .container_experience {
+        // grid-column: span 4;
+
+        ul {
+          list-style: disc;
+          margin-left: 16px;
+
+          li {
+            line-height: 26px;
+
+            &::marker {
+              font-size: 0.7em; /* 调整大小 */
+              margin-right: 40px;
+            }
+          }
+        }
+      }
+
+      .container_opponents {
+        // grid-column: span 1;
+        padding-bottom: 40px;
+        .opponents_list {
+          display: flex;
+          gap: 24px;
+          text-align: center;
+          .opponents_item {
+            &:hover .pic img {
+              background-color: $blue-d;
+            }
+            .pic {
+              img {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                border: 1px solid $blue-d;
+                background-color: transparent;
+                object-fit: cover;
+                transition: all 0.4s;
+              }
+
+              p {
+                font-weight: 500;
+              }
             }
           }
         }
@@ -278,10 +287,13 @@ export default {
 }
 
 @media (min-width: 1000px) {
+  .candidate_flex {
+    height: 97.4vh;
+    
   .candidate {
     // background: #fefbf3;
     // height: 98vh;
-    height: 100vh;
+    // height: 100vh;
     // display: flex;
     // flex-direction: column;
     // margin: 0;
@@ -364,6 +376,6 @@ export default {
         }
       }
     }
-  }
+  }}
 }
 </style>

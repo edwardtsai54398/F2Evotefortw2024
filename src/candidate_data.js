@@ -3,9 +3,9 @@ export const candidates = {
   1: {
     id: "1",
     name: "喵楚魚",
-    party_image: "/image/candidate/1_politics.png",
-    party: "親民黨",
-    partner: "余湘 (無黨籍)",
+    party_image: "/image/candidate/1_politics.svg",
+    party: "橘喵黨",
+    partner: "魚汪汪 (無黨籍)",
     background: "政治界：公職、國際關係研究員",
     education: [
       "E國立政治大學外交系畢業（1964）",
@@ -48,9 +48,9 @@ export const candidates = {
   2: {
     id: "2",
     name: "喵英文",
-    party_image: "/image/candidate/2_politics.png",
-    party: "民主進步黨",
-    partner: "賴青德 (民主進步黨)",
+    party_image: "/image/candidate/2_politics.svg",
+    party: "綠喵黨",
+    partner: "喵青德 (綠喵黨)",
     background: "政治界：大學教授、國際談判代表",
     education: [
       "國立臺灣大學法律系畢業（1978）",
@@ -94,14 +94,13 @@ export const candidates = {
   3: {
     id: "3",
     name: "汪國魚",
-    party_image: "/image/candidate/3_politics.png",
-    party: "中國國民黨",
-    partner: "張善政 (無黨籍)",
+    party_image: "/image/candidate/3_politics.svg",
+    party: "藍汪黨",
+    partner: "喵善政 (無黨籍)",
     background: "政治界：民意代表",
     education: [
       "東吳大學英國語文學系畢業（1985）",
       "國立政治大學東亞研究所法學碩士（1988）",
-      // ...其他教育資訊行
     ],
     experience: [
       "世新專科講師",
@@ -112,7 +111,6 @@ export const candidates = {
       "臺北農產運銷公司總經理（2013-2017）",
       "中國國民黨高雄市黨部主委（2017-2019）",
       "高雄市市長（2018-2020）",
-      // ...其他經驗資訊行
     ],
     opponents: [
       {
