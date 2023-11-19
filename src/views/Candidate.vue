@@ -105,7 +105,7 @@ export default {
     <Footer />
   </div>
   <div v-else>
-    <p>Candidate not found</p>
+    <p>404 error</p>
   </div>
 </template>
 
@@ -115,13 +115,13 @@ export default {
 // --
 
 .candidate {
-  background: #fefbf3;
+  background: $bg;
   height: 100%;
   display: flex;
   flex-direction: column;
   margin: 0 -8px;
   padding: 0;
-  width: 100hw;
+  // width: 100hw;
   // overflow: hidden;
 
   h1 {
@@ -159,6 +159,7 @@ export default {
         // margin-top: -60px;
         img {
           width: 100%;
+          height: 100%;
           vertical-align: top;
         }
         .web {
@@ -276,43 +277,53 @@ export default {
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1000px) {
   .candidate {
-    background: #fefbf3;
-    height: 98vh;
-    display: flex;
-    flex-direction: column;
+    // background: #fefbf3;
+    // height: 98vh;
+    height: 100vh;
+    // display: flex;
+    // flex-direction: column;
     // margin: 0;
     // padding: 0;
     // overflow: hidden;
 
     h1 {
-      margin-top: 24px;
+      margin-top: 16px;
       padding: 0 40px;
-      color: $blue-d;
+      // color: $blue-d;
       font-size: 14px;
       font-weight: 400;
-      line-height: 30px; /* 214.286% */
+      // line-height: 30px; /* 214.286% */
       letter-spacing: 0.84px;
     }
     .grid_container {
-      flex-grow: 1;
+      // flex-grow: 1;
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      gap: 10px; /* 根据需要设置间隙 */
+      gap: 10px;
       padding: 0 40px;
       margin-top: 40px;
+
+      // NOTE 通用特別提拔到外面
+      .container_title {
+        // color: $blue-d;
+        font-size: 24px;
+        // font-weight: 500;
+        margin-bottom: 10px;
+        margin-top: 16px;
+      }
 
       .container_pic {
         grid-column: span 4;
 
         .pic {
-          width: 100%;
-          margin-top: 0;
+          // width: 100%;
 
-          img {
-            width: 100%;
-          }
+          // img {
+          //   width: 100%;
+          //   height: 100%;
+          // }
 
           .web {
             display: block;
@@ -329,10 +340,28 @@ export default {
 
       .container_experience {
         grid-column: span 4;
+        .container_title {
+          margin-top: 0px;
+        }
+
+        ul {
+          li {
+            line-height: 32px;
+          }
+        }
       }
 
       .container_opponents {
         grid-column: span 1;
+
+        .container_title {
+          display: none;
+        }
+
+        .opponents_list {
+          flex-direction: column;
+          padding-top: 224px;
+        }
       }
     }
   }
