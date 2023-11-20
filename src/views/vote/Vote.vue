@@ -62,6 +62,7 @@ const changeYear = (year) => {
     max-width: 1280px;
     justify-content: space-between;
     margin: auto;
+    padding: 80px 0;
 }
 
 .d-flex {
