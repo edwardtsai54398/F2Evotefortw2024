@@ -5,7 +5,7 @@ import SideMenu from "./SideMenu.vue";
 import TwMap from "./TwMap.vue";
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
-
+import { transformName } from "../../utils/method";
 const store = useStore();
 
 const years = [2020, 2016, 2012];
@@ -15,7 +15,24 @@ const currentYear = ref(2020);
 const changeYear = (year) => {
     currentYear.value = year;
     store.commit("setCurrentYear", currentYear.value);
-    store.dispatch("fetchData", { fileName: "all", isCity: true });
+    let level = store.state.currentZone.level
+    if(level === "nation"){
+        store.dispatch("fetchData", { fileName: "all", isCity: true });
+    }else if(level === "city"){
+        store.dispatch("fetchData", {fileName: transformName(store.state.currentZone.city), isCity: true});
+    }else if(level ==="district"){
+        let startDistrict = store.state.currentZone.district
+        let endDistrict = store.state.countyData.forEach((district, index)=>{
+            if(district.name === startDistrict){
+                if(index+1 === store.state.countyData.length){
+                    return ""
+                }else{
+                    return store.state.countyData[index+1].name
+                }
+            }
+        })
+        store.dispatch("fetchData", {fileName: transformName(store.state.currentZone.city), isCity: false, county: [startDistrict,endDistrict]});
+    }
 }
 
 </script>

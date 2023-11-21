@@ -193,7 +193,6 @@ watch(store.state.currentZone, (newVal) => {
     } else if (newVal.level === "district") {
         getMap((mapData) => {
             if (mapData.length === 0) {
-                console.log('沒有村里資料');
                 ElMessage({
                     message:'沒有村里地圖資料，請以票選數據為主',
                     type:'warning',
@@ -203,7 +202,6 @@ watch(store.state.currentZone, (newVal) => {
                 })
 
             } else if (mapData.some((village) => village.properties.VILLNAME == '')) {
-                console.log('村里地圖資料有誤');
                 ElMessage({
                     message:'村里地圖資料有誤，請以票選數據為主',
                     type: 'warning',
@@ -227,17 +225,19 @@ watch(store.state.currentZone, (newVal) => {
 const nationVoteData = ref([])
 const cityVoteData = ref([])
 const districtVoteData = ref([])
-watch(store.state.allData, (newVal) => {
-    console.log(newVal);
-    if (currentLevel.value == 'nation') {
+const voteAllData = computed(()=>{
+    return store.state.allData
+})
+watch(voteAllData, (newVal) => {
+    if (store.state.currentZone.level == 'nation') {
         nationVoteData.value = newVal
-    } else if (currentLevel.value == 'city') {
+    } else if (store.state.currentZone.level == 'city') {
         cityVoteData.value = newVal
-    } else if (currentLevel.value == 'district') {
-
+    } else if (store.state.currentZone.level == 'district') {
+        // console.log(newVal);
         districtVoteData.value = newVal
     }
-}, { immediate: true, deep: true })
+}, { immediate:true, deep: true })
 function findHighestParty(voteData, zoneName) {
     let blue = '#8db5db'
     let green = '#749c74'
@@ -263,35 +263,6 @@ function findHighestParty(voteData, zoneName) {
             return gray;
     }
 }
-// const findHighestParty = computed(() => {
-//     return (zoneName) => {
-
-//         let blue = '#8db5db'
-//         let green = '#749c74'
-//         let orng = '#ffb086'
-//         let gray = '#aaa'
-//         let zoneVoteData = store.state.allData.find((voteZone) => voteZone.name === zoneName)
-//         if (!zoneVoteData) {
-//             return gray
-//         }
-//         let vote = zoneVoteData.vote
-//         let partyArr = Object.keys(vote)
-//         let maxParty = partyArr.reduce((partyFront, partyBehind) =>
-//             (vote[partyBehind] > vote[partyFront]) ? partyBehind : partyFront
-//             , partyArr[0])
-//         switch (maxParty) {
-//             case "民進黨":
-//                 return green;
-//             case "國民黨":
-//                 return blue;
-//             case "親民黨":
-//                 return orng;
-//             default:
-//                 return gray;
-//         }
-
-//     }
-// })
 </script>
 
 <template>
