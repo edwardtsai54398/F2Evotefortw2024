@@ -22,43 +22,57 @@ const changeYear = (year) => {
 
 <template>
     <Header/>
-    <div class="vote-page">
-        <SideMenu />
-        <TwMap />
-        <div class="main-title">
-            <div class="title">
-                <span>
-                    {{ currentYear }}
-                    <span></span>
-                </span>
-                <span>總統大選</span>
-            </div>
-            <div class="year-selection">
-                <ul>
-                    <li v-for="year in years" :key="year" :class="{active: year === currentYear}" @click="changeYear(year)">
-                        <button :class="{active: year === currentYear}">{{ year }}</button>
-                        <span class="decoration" :class="{'deco-active': year === currentYear}"></span>
-                    </li>
-                </ul>
-            </div>
-            <div class="party-symbol">
-                <ul>
-                    <li v-for="symbol in partySymbol" :key="symbol">
-                        <span></span>
-                        {{ symbol }}
-                    </li>
-                </ul>
+    <div class="layout-content" style="height:100vh">
+        <div class="layout-content">
+            <div class="vote-page">
+                <SideMenu />
+                <TwMap />
+                <div class="main-title">
+                    <div class="title">
+                        <span>
+                            {{ currentYear }}
+                            <span></span>
+                        </span>
+                        <span>總統大選</span>
+                    </div>
+                    <div class="year-selection">
+                        <ul>
+                            <li v-for="year in years" :key="year" :class="{active: year === currentYear}" @click="changeYear(year)">
+                                <button :class="{active: year === currentYear}">{{ year }}</button>
+                                <span class="decoration" :class="{'deco-active': year === currentYear}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="party-symbol">
+                        <ul>
+                            <li v-for="symbol in partySymbol" :key="symbol">
+                                <span></span>
+                                {{ symbol }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
+        <Footer/>
     </div>
-    <Footer/>
 </template>
 
 <style lang="scss">
 @import "@/assets/scss/all.scss";
+.layout-content{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
 
 .vote-page {
     display: flex;
+    width: 100%;
+    padding-top: 60px;
+    height: 100%;
     max-width: 1280px;
     justify-content: space-between;
     margin: auto;

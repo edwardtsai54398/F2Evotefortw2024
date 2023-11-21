@@ -73,7 +73,8 @@ export default {
 @import "@/assets/scss/all.scss";
 
 header {
-  position: sticky;
+  // position: sticky;
+  position: fixed;
   top: 0;
   display: flex;
   justify-content: space-between;
