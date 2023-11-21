@@ -4,10 +4,10 @@ import router from './router';
 import store from './store'
 
 
+
 const app = createApp(App)
 
-// import axios from 'axios';
-// import VueAxios from 'vue-axios'
-// app.use(VueAxios, axios)
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 
-app.use(store).use(router).mount('#app')
+app.use(store).use(router).use(ElementPlus).mount('#app')

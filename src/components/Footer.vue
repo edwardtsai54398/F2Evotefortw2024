@@ -21,7 +21,7 @@ footer {
   // height: 35px;
   // padding: 16px;
   // margin: 0 -8px !important;
-  margin-bottom: -13px !important;
+  // margin-bottom: -13px !important;
   display: flex;
   width: 100%;
 
