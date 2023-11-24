@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="header">
     <!-- 遮罩層 -->
 
     <nav>
@@ -72,20 +72,18 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/all.scss";
 
-header {
+.header {
   // position: sticky;
   position: fixed;
+  z-index: 200;
   top: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 60px;
-  margin-top: -8px !important;
-  margin-bottom: 0 !important;
+  left: 0;
+  // margin-top: -8px !important;
+  // margin-bottom: 0 !important;
   background-color: $blue-d;
   color: $bg;
   width: 100%;
-
+  
   .overlay {
     display: none;
     position: fixed;
@@ -98,10 +96,13 @@ header {
     z-index: 4;
     // transition: all 1.5s ease-in-out;
   }
-
+  
   nav {
+    width: 100%;
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    height: 60px;
     padding: 0 40px;
 
     @media (max-width: 767px) {

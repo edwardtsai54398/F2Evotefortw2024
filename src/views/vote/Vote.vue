@@ -71,7 +71,7 @@ const changeYear = (year) => {
                 </div>
             </div>
         </div>
-        <Footer/>
+        <div class="vote-footer"><Footer/></div>
     </div>
 </template>
 
@@ -100,5 +100,14 @@ const changeYear = (year) => {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.vote-footer{
+    display: none;
+}
+@include desktop{
+    .vote-footer{
+        display: block;
+    }
+
 }
 </style>

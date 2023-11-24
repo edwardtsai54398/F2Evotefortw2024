@@ -35,8 +35,8 @@ export default {
 </script>
 
 <template>
+  <Header />
   <div class="candidate_flex">
-    <Header />
 
     <div class="candidate" v-if="candidate">
       <h1>中華民國第十五任總統暨副總統選舉 / {{ candidate.name }}</h1>
@@ -115,8 +115,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/all.scss";
-// @import "@/assets/scss/page/about.scss";
-// --
 .candidate_flex {
     margin: 0 -8px;
     height: 100%;

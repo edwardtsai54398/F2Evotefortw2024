@@ -19,7 +19,7 @@ const mapTranslate = reactive({ x: 0, y: 0 });
 
 //RWD
 let scale = 5500;
-let LontitudeAndLatitude = [122,24.5]
+let LontitudeAndLatitude = [122, 24.5]
 function mapScaleSet() {
     let wWidth = window.innerWidth;
     if (wWidth >= 1000) {
@@ -28,7 +28,7 @@ function mapScaleSet() {
         scale = 9000;
     } else if (wWidth < 700) {
         scale = 6500;
-        LontitudeAndLatitude = [123.7,24]
+        LontitudeAndLatitude = [123.7, 24]
     }
 }
 mapScaleSet()
@@ -39,8 +39,8 @@ function mapSize() {
         mapWidth.value = 600
         mapProportion.value = 1.25
     } else {
-        mapWidth.value = 300
-        mapProportion.value = 1.8
+        mapWidth.value = 350
+        mapProportion.value = 1.6
     }
 }
 
@@ -68,8 +68,11 @@ function getMap(callback, level = "nation", zone = "nation") {
 
     let mapData;
     let choosedZoneMapData = [];
-
-    return d3.json(`public/tw_map/${file}`).then((data) => {
+    //開發用
+    // let prefixURL = 'public/tw_map/'
+    //上線用
+    let prefixURL = '/tw_map/'
+    return d3.json(`${prefixURL}${file}`).then((data) => {
         if (level === "nation") {
             mapData = topojson.feature(data, data.objects.COUNTY_MOI_1121110);
             taiwanMapData.value = mapData.features;
@@ -194,8 +197,8 @@ watch(store.state.currentZone, (newVal) => {
         getMap((mapData) => {
             if (mapData.length === 0) {
                 ElMessage({
-                    message:'沒有村里地圖資料，請以票選數據為主',
-                    type:'warning',
+                    message: '沒有村里地圖資料，請以票選數據為主',
+                    type: 'warning',
                     offset: 60,
                     duration: 5000,
                     showClose: true
@@ -203,7 +206,7 @@ watch(store.state.currentZone, (newVal) => {
 
             } else if (mapData.some((village) => village.properties.VILLNAME == '')) {
                 ElMessage({
-                    message:'村里地圖資料有誤，請以票選數據為主',
+                    message: '村里地圖資料有誤，請以票選數據為主',
                     type: 'warning',
                     offset: 60,
                     duration: 5000,
@@ -225,7 +228,7 @@ watch(store.state.currentZone, (newVal) => {
 const nationVoteData = ref([])
 const cityVoteData = ref([])
 const districtVoteData = ref([])
-const voteAllData = computed(()=>{
+const voteAllData = computed(() => {
     return store.state.allData
 })
 watch(voteAllData, (newVal) => {
@@ -237,7 +240,7 @@ watch(voteAllData, (newVal) => {
         // console.log(newVal);
         districtVoteData.value = newVal
     }
-}, { immediate:true, deep: true })
+}, { immediate: true, deep: true })
 function findHighestParty(voteData, zoneName) {
     let blue = '#8db5db'
     let green = '#749c74'
@@ -268,7 +271,11 @@ function findHighestParty(voteData, zoneName) {
 <template>
     <div class="map-container">
         <div class="map" :style="`width:${mapWidth}px;height:${mapHeight}px`">
-            <button class="backto_nation" @click="backtoNation"><img src="/image/Arrows_Lineal.png" alt=""><span>回全國</span></button>
+            <button class="backto_nation" @click="backtoNation" :class="{ 'show': currentLevel !== 'nation' }">
+                <img class="blue-arrow" src="@/assets/images/Arrows_Lineal.png" alt="返回符號" >
+                <img class="white-arrow" src="@/assets/images/A111-Arrows_Lineal.png" alt="返回符號" >
+                <span>回全國</span>
+            </button>
             <svg ref="mapRef" :style="`transform:scale(${svgScale})`">
                 <g id="nation-map" :style="`transform:translate(${mapTranslate.x}px,${mapTranslate.y}px)`">
                     <g class="city" :class="{ 'current_level': currentLevel === 'nation' }">
@@ -305,14 +312,13 @@ function findHighestParty(voteData, zoneName) {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 60px;
 }
 
 .map {
-    border: 1px solid #000;
+    // border: 1px solid #000;
     position: relative;
 
-    // z-index: -1;
-    // overflow: hidden;
     &>svg {
         display: block;
         width: 100%;
@@ -359,27 +365,53 @@ function findHighestParty(voteData, zoneName) {
     align-items: center;
     position: absolute;
     z-index: 2;
-    opacity: 1;
-    visibility: visible;
+    opacity: 0;
+    visibility: hidden;
     padding: 4px;
+    transition: .8s;
+    border: 2px solid $blue-d;
 
     span {
         color: $blue-d;
-        font-size: $xs-font;
+        font-size: $s-font;
         margin-left: $sp1;
     }
-}
-@media screen and (max-width: 767px){
-    .backto_nation {
+    .blue-arrow{
+        display: inline-block;
+    }
+    .white-arrow{
+        display: none;
+    }
+    &.show {
+        opacity: 1;
+        visibility: visible;
         
+        .blue-arrow{
+            display: none;
+        }
+        .white-arrow{
+            display: inline-block;
+        }
+    }
+    &:hover{
+        background-color: $blue-d;
+        span{
+            color: $bg;
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .backto_nation {
+
         top: 20px;
         right: 20px;
     }
 }
+
 @include pad-V {
     .backto_nation {
         bottom: 20px;
         left: 20px;
     }
-}
-</style>
+}</style>
