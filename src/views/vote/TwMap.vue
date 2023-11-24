@@ -273,7 +273,7 @@ function findHighestParty(voteData, zoneName) {
         <div class="map" :style="`width:${mapWidth}px;height:${mapHeight}px`">
             <button class="backto_nation" @click="backtoNation" :class="{ 'show': currentLevel !== 'nation' }">
                 <img class="blue-arrow" src="@/assets/images/Arrows_Lineal.png" alt="返回符號" >
-                <img class="white-arrow" src="@/assets/images/A111-Arrows_Lineal.png" alt="返回符號" >
+                <img class="white-arrow" src="@/assets/images/A111-_Arrows_Lineal.png" alt="返回符號" >
                 <span>回全國</span>
             </button>
             <svg ref="mapRef" :style="`transform:scale(${svgScale})`">
