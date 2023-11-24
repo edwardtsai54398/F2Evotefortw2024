@@ -71,7 +71,7 @@ function getMap(callback, level = "nation", zone = "nation") {
     //開發用
     // let prefixURL = 'public/tw_map/'
     //上線用
-    let prefixURL = '/tw_map/'
+    let prefixURL = 'F2Evotefortw2024/tw_map/'
     return d3.json(`${prefixURL}${file}`).then((data) => {
         if (level === "nation") {
             mapData = topojson.feature(data, data.objects.COUNTY_MOI_1121110);
