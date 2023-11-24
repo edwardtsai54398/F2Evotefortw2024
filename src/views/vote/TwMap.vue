@@ -71,7 +71,7 @@ function getMap(callback, level = "nation", zone = "nation") {
     //開發用
     // let prefixURL = 'public/tw_map/'
     //上線用
-    let prefixURL = '/tw_map/'
+    let prefixURL = 'tw_map/'
     return d3.json(`${prefixURL}${file}`).then((data) => {
         if (level === "nation") {
             mapData = topojson.feature(data, data.objects.COUNTY_MOI_1121110);
@@ -386,17 +386,17 @@ function findHighestParty(voteData, zoneName) {
         opacity: 1;
         visibility: visible;
         
-        .blue-arrow{
-            display: none;
-        }
-        .white-arrow{
-            display: inline-block;
-        }
     }
     &:hover{
         background-color: $blue-d;
         span{
             color: $bg;
+        }
+        .blue-arrow{
+            display: none;
+        }
+        .white-arrow{
+            display: inline-block;
         }
     }
 }
