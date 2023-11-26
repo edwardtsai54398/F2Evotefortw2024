@@ -1,5 +1,5 @@
 <template>
-  <div class="side-menu">
+  <div class="side-menu" ref="sideMenu" :class="{ 'open': isSideMenuOpen }">
     <div class="top-navgation">
       <div class="selection">
         <div class="city" @click="openCitySelection" :class="{on: citySelectionOpen}">
@@ -44,15 +44,18 @@
           <VoteBar :data="data"/>
       </div>
     </div>
+    <div class="mobile-arrow" @click="openSideMenu">
+      <img src="../../assets/images/mobile-arrow.png" alt="arrow" :class="{ 'down': isSideMenuOpen }">
+    </div>
   </div>
 </template>
 <script>
 import { ref, reactive, onMounted, computed, watch } from "vue";
-// import VoteBar from "../../components/VoteBar.vue";
+
 import VoteBar from "@/components/VoteBar.vue";
 import { useStore } from "vuex";
 import { transformName } from "../../utils/method";
-// import { candidates } from '../data';
+
 export default {
   name: "SideMenu",
   components: { VoteBar },
@@ -126,6 +129,7 @@ export default {
       return store.state.countyData;
     })
 
+
     // 處理各政黨的得票率數字
     const green = computed(() => {
       return store.state.taiwanResults.green;
@@ -156,6 +160,17 @@ export default {
         class: "orange",
       },
     ]);
+      
+    // 手機選單控制
+    const isSideMenuOpen = ref(false);
+    const openSideMenu = () => {
+      if (!isSideMenuOpen.value) {
+        isSideMenuOpen.value = true;
+      } else {
+        isSideMenuOpen.value = false;
+      }
+    }
+    
 
 
     onMounted(() => {
@@ -176,6 +191,8 @@ export default {
       currentCity,
       currentCounty,
       candidateVoteRation,
+      openSideMenu,
+      isSideMenuOpen,
     };
   },
 }

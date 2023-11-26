@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useStore } from "vuex";
 import SideMenu from "./SideMenu.vue";
 import TwMap from "./TwMap.vue";
@@ -35,6 +35,23 @@ const changeYear = (year) => {
     }
 }
 
+const isYearShow = ref(false);
+const openYear = () => {
+    if (!isYearShow.value) {
+        isYearShow.value = true;
+    } else {
+        isYearShow.value = false;
+    }
+}
+const dialog = ref(null);
+const openExplanation = () => {
+    dialog.value.showModal();
+}
+const closeDialog = () => {
+    dialog.value.close();
+}
+
+
 </script>
 
 <template>
@@ -46,13 +63,13 @@ const changeYear = (year) => {
                 <TwMap />
                 <div class="main-title">
                     <div class="title">
-                        <span>
+                        <span class="year-decoration">
                             {{ currentYear }}
-                            <span></span>
+                            <span class="double-txt">{{ currentYear }}</span>
                         </span>
-                        <span>總統大選</span>
+                        <span class="president-title">總統大選</span>
                     </div>
-                    <div class="year-selection">
+                    <div class="year-selection" ref="yearSelections" :class="{'no-show': !isYearShow}">
                         <ul>
                             <li v-for="year in years" :key="year" :class="{active: year === currentYear}" @click="changeYear(year)">
                                 <button :class="{active: year === currentYear}">{{ year }}</button>
@@ -69,10 +86,28 @@ const changeYear = (year) => {
                         </ul>
                     </div>
                 </div>
+                <div class="mobile-symbol" ref="year">
+                    <span :class="{ active: isYearShow }" @click="openYear">年份</span>
+                    <span @click="openExplanation">說明</span>
+                </div>
             </div>
         </div>
         <div class="vote-footer"><Footer/></div>
     </div>
+    <dialog ref="dialog">
+        <h6>使用說明</h6>
+        <p>
+            下方的表格與上方的地是圖互相連動的，請放心從任何一邊進入有興趣的區域查看詳細選情。資訊會自動隨著地區的層級改變，地圖的「回全國」按鈕，即可隨時回到最上層觀看最全面的選情動態。
+        </p>
+        <h6>政黨代表色</h6>
+        <ul>
+            <li v-for="symbol in partySymbol" :key="symbol">
+                <span></span>
+                {{ symbol }}
+            </li>
+        </ul>
+        <button @click="closeDialog">X</button>
+    </dialog>
 </template>
 
 <style lang="scss">

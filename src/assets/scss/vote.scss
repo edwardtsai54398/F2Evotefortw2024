@@ -12,29 +12,28 @@
       background-clip: text;
       -webkit-background-clip: text;
       position: relative;
-      &:first-child {
+    }
+    .year-decoration {
+      font-size: 85px;
+      .double-txt {
         font-size: 85px;
-        &::after {
-          content: '2020';
-          position: absolute;
-          color: transparent;
-          -webkit-text-stroke: 1px rgba(13, 37, 98, 1);
-          ;
-          left: 1px;
-          top: 1px;
-        }
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(13, 37, 98, 1);
+        background: none;
       }
-      &:last-child {
-        font-size: 50px;
-        &::after {
-          content: '總統大選';
-          position: absolute;
-          color: transparent;
-          -webkit-text-stroke: 1px rgba(13, 37, 98, 1);
-          ;
-          left: -2px;
-          top: 1px;
-        }
+    }
+    .president-title {
+      font-size: 50px;
+      &::after {
+        content: '總統大選';
+        position: absolute;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(13, 37, 98, 1);
+        left: -2px;
+        top: 1px;
       }
     }
   }
@@ -117,6 +116,146 @@
       margin-right: 12px;
       border-radius: 50%;
       display: block;
+    }
+  }
+}
+.mobile-symbol {
+  position: fixed;
+  right: 30px;
+  bottom: 300px;
+  display: none;
+  span {
+    padding: 5px;
+    border-radius: 50px;
+    background: linear-gradient(180deg, #0D2562, #3B4F82);
+    color: #FEFBF3;
+    display: block;
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width:768px ) {
+  .main-title {
+    position: fixed;
+    top: 20px;
+    left: 5px;
+    align-items: flex-start;
+    .title {
+      text-align-last: left;
+      .year-decoration {
+        font-size: 50px;
+        .double-txt {
+          font-size: 50px;
+          top: 2px;
+          left: 4px;
+        }
+      }
+      .president-title {
+        font-size: 30px;
+        margin-top: 10px;
+      }
+    }
+    .party-symbol {
+      display: none;
+    }
+    .year-selection {
+      margin: 25px 0 0 0;
+      &::after {
+        right: 60px;
+      }
+      li {
+        &:not(:last-child) {
+          margin-bottom: 10px;
+        }
+        border: none;
+        background: none;
+        button {
+          color: #0D2562;
+          opacity: 0.5;
+        }
+      }
+      .active {
+        border: none;
+        opacity: 1;
+      }
+    }
+    .no-show {
+      display: none;
+    }
+    .decoration {
+      right: 57px;
+    }
+    .decoration.deco-active {
+      right: 57px;
+    }
+  }
+  .mobile-symbol {
+    display: block;
+    .active {
+      background: #FEFBF3;
+      color: #0D2562;
+      border: 1px solid #0D2562;
+    }
+  }
+  dialog {
+    top: 40%;
+    transform: translateY(-50%);
+    padding: 20px;
+    width: 80%;
+    right: 0;
+    left: 0;
+    margin: auto;
+    border: none;
+    background: #FEFBF3;
+    border-radius: 12px;
+    position: relative;
+    h6 {
+      color: #0D2562;
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+    p {
+      color: #3D3D3D;
+      margin-bottom: 20px;
+    }
+    ul {
+      display: flex;
+    }
+    li {
+      display: flex;
+      align-items: center;
+      margin-right: 15px;
+      span {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin-right: 5px;
+        display: block;
+      }
+      &:nth-of-type(1) {
+        span {
+          background: #8CB5DB;
+        }
+      }
+      &:nth-of-type(2) {
+        span {
+          background: #749C74;
+        }
+      }
+      &:nth-of-type(3) {
+        span {
+          background: #FFB086;
+        }
+      }
+    }
+    button {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      font-size: 20px;
+      outline: none;
+      border: none;
     }
   }
 }

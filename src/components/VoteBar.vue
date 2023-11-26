@@ -99,4 +99,11 @@ export default {
     overflow: hidden;
   }
 }
+@media screen and (max-width:768px ) {
+.vote-bar {
+  .title {
+    color: #fff;
+  }
+}
+}
 </style>

@@ -1,6 +1,7 @@
 .side-menu {
   width: 30%;
   position: relative;
+  max-height: 100vh;
   z-index: 100;
   padding: 10px;
   border-radius: 16px 30px;
@@ -8,6 +9,7 @@
   border: 1px solid rgba(254, 251, 243, 1);
   background-color: $bg;
   .top-navgation {
+    min-height: 230px;
     background: linear-gradient(180deg, #0D2562 0%, #4F6190 100%);
     border-radius: 14px 14px 30px 30px;
     padding: 15px 10px;
@@ -105,8 +107,8 @@ linear-gradient(0deg, #0D2562, #0D2562);
     }
   }
   .each-area-ratio {
+    height: calc(100% - 230px);
     position: relative;
-    max-height: 420px;
     padding: 15px 25px 0;
     font-size: 14px;
     color: rgba(172, 172, 172, 1);
@@ -139,5 +141,55 @@ linear-gradient(0deg, #0D2562, #0D2562);
   }
   ::-webkit-scrollbar-thumb:hover {
     background: #555; 
+  }
+  .mobile-arrow {
+    display: none;
+  }
+}
+
+@media screen and (max-width:768px ) {
+  .side-menu {
+    position: fixed;
+    transition: .8s;
+    top: 75%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: linear-gradient(180deg, #0D2562 0%, #4F6190 141.18%);
+    border: none;
+    box-shadow: none;
+    .top-navgation {
+      background: none;
+      box-shadow: none;
+      .candidate-all .decoration {
+        flex: 1;
+      }
+    }
+    .mobile-arrow {
+      display: block;
+      position: absolute;
+      top: -29px;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 60px;
+      padding: 5px 0;
+      text-align: center;
+      border-radius: 10px 10px 0 0;
+      border-top: 1px solid #aaa;
+      border-left: 1px solid #aaa;
+      border-right: 1px solid #aaa;
+      background-color: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 0 5px#0D2562;
+    }
+  }
+  .open {
+    top: 40%;
+    height: 580px;
+    padding: 10px 10px 50px;
+  }
+  .down {
+    rotate: 180deg;
+    transition: .5s;
   }
 }
