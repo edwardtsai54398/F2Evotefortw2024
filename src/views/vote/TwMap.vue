@@ -404,7 +404,7 @@ function findHighestParty(voteData, zoneName) {
 @media screen and (max-width: 767px) {
     .map-container {
         left: 20px;
-        top: -130px;
+        top: -13%;
     }
     .backto_nation {
         top: 20px;
