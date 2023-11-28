@@ -3,7 +3,7 @@ export const candidates = {
   1: {
     id: "1",
     name: "喵楚魚",
-    party_image: "/image/candidate/1_politics.svg",
+    party_image: "/F2Evotefortw2024/image/candidate/1_politics.svg",
     party: "橘喵黨",
     partner: "魚汪汪 (無黨籍)",
     background: "政治界：公職、國際關係研究員",
@@ -30,25 +30,25 @@ export const candidates = {
     opponents: [
       {
         name: "喵英文",
-        image: "/image/candidate/2_photo.png",
+        image: "/F2Evotefortw2024/image/candidate/2_photo.png",
         link: "/candidate/2",
       },
       {
         name: "汪國魚",
-        image: "/image/candidate/3_photo.png",
+        image: "/F2Evotefortw2024/image/candidate/3_photo.png",
         link: "/candidate/3",
       },
     ],
     image: {
-      web: "/image/candidate/1_player.png",
-      mb: "/image/candidate/1_player_m.png",
+      web: "/F2Evotefortw2024/image/candidate/1_player.png",
+      mb: "/F2Evotefortw2024/image/candidate/1_player_m.png",
     },
     description: "Description for Candidate 1",
   },
   2: {
     id: "2",
     name: "喵英文",
-    party_image: "/image/candidate/2_politics.svg",
+    party_image: "/F2Evotefortw2024/image/candidate/2_politics.svg",
     party: "綠喵黨",
     partner: "喵青德 (綠喵黨)",
     background: "政治界：大學教授、國際談判代表",
@@ -76,25 +76,25 @@ export const candidates = {
     opponents: [
       {
         name: "喵楚魚",
-        image: "/image/candidate/1_photo.png",
+        image: "/F2Evotefortw2024/image/candidate/1_photo.png",
         link: "/candidate/1",
       },
       {
         name: "汪國魚",
-        image: "/image/candidate/3_photo.png",
+        image: "/F2Evotefortw2024/image/candidate/3_photo.png",
         link: "/candidate/3",
       },
     ],
     image: {
-      web: "/image/candidate/2_player.png",
-      mb: "/image/candidate/2_player_m.png",
+      web: "/F2Evotefortw2024/image/candidate/2_player.png",
+      mb: "/F2Evotefortw2024/image/candidate/2_player_m.png",
     },
     description: "Description for Candidate 2",
   },
   3: {
     id: "3",
     name: "汪國魚",
-    party_image: "/image/candidate/3_politics.svg",
+    party_image: "/F2Evotefortw2024/image/candidate/3_politics.svg",
     party: "藍汪黨",
     partner: "喵善政 (無黨籍)",
     background: "政治界：民意代表",
@@ -115,18 +115,18 @@ export const candidates = {
     opponents: [
       {
         name: "喵楚魚",
-        image: "/image/candidate/1_photo.png",
+        image: "/F2Evotefortw2024/image/candidate/1_photo.png",
         link: "/candidate/1",
       },
       {
         name: "喵英文",
-        image: "/image/candidate/2_photo.png",
+        image: "/F2Evotefortw2024/image/candidate/2_photo.png",
         link: "/candidate/2",
       },
     ],
     image: {
-      web: "/image/candidate/3_player.png",
-      mb: "/image/candidate/3_player_m.png",
+      web: "/F2Evotefortw2024/image/candidate/3_player.png",
+      mb: "/F2Evotefortw2024/image/candidate/3_player_m.png",
     },
     description: "Description for Candidate 3",
   },

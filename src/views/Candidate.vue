@@ -37,7 +37,6 @@ export default {
 <template>
   <Header />
   <div class="candidate_flex">
-
     <div class="candidate" v-if="candidate">
       <h1>中華民國第十五任總統暨副總統選舉 / {{ candidate.name }}</h1>
       <!-- grid 排版 -->
@@ -116,12 +115,14 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/all.scss";
 .candidate_flex {
-    margin: 0 -8px;
-    height: 100%;
-    padding: 0;
-    background: $bg;
-    display: flex;
-    flex-direction: column;
+  margin: 0 -8px;
+  margin-bottom: -8px;
+  height: 100%;
+  padding: 0;
+  padding-top: 60px;
+  background: $bg;
+  display: flex;
+  flex-direction: column;
   .candidate {
     display: flex;
     flex-direction: column;
@@ -144,7 +145,7 @@ export default {
       display: flex;
       flex-direction: column;
       // grid-template-columns: repeat(12, 1fr);
-      gap: 20px;
+      // gap: 20px;
       padding: 0 20px;
       // margin-top: 40px;
 
@@ -253,7 +254,7 @@ export default {
 
       .container_opponents {
         // grid-column: span 1;
-        padding-bottom: 40px;
+        padding-bottom: 20px;
         .opponents_list {
           display: flex;
           gap: 24px;
@@ -286,94 +287,96 @@ export default {
 
 @media (min-width: 1000px) {
   .candidate_flex {
-    height: 97.4vh;
-    
-  .candidate {
-    // background: #fefbf3;
-    // height: 98vh;
-    // height: 100vh;
-    // display: flex;
-    // flex-direction: column;
-    // margin: 0;
-    // padding: 0;
-    // overflow: hidden;
+    // height: 97.4vh;
+    min-height: 99vh;
 
-    h1 {
-      margin-top: 16px;
-      padding: 0 40px;
-      // color: $blue-d;
-      font-size: 14px;
-      font-weight: 400;
-      // line-height: 30px; /* 214.286% */
-      letter-spacing: 0.84px;
-    }
-    .grid_container {
-      // flex-grow: 1;
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 10px;
-      padding: 0 40px;
-      margin-top: 40px;
+    .candidate {
+      // background: #fefbf3;
+      // height: 98vh;
+      // height: 100vh;
+      // display: flex;
+      // flex-direction: column;
+      // margin: 0;
+      // padding: 0;
+      // overflow: hidden;
 
-      // NOTE 通用特別提拔到外面
-      .container_title {
-        // color: $blue-d;
-        font-size: 24px;
-        // font-weight: 500;
-        margin-bottom: 10px;
+      h1 {
         margin-top: 16px;
+        padding: 0 40px;
+        // color: $blue-d;
+        font-size: 14px;
+        font-weight: 400;
+        // line-height: 30px; /* 214.286% */
+        letter-spacing: 0.84px;
       }
+      .grid_container {
+        // flex-grow: 1;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 10px;
+        padding: 0 40px;
+        margin-top: 40px;
 
-      .container_pic {
-        grid-column: span 4;
+        // NOTE 通用特別提拔到外面
+        .container_title {
+          // color: $blue-d;
+          font-size: 24px;
+          // font-weight: 500;
+          margin-bottom: 10px;
+          margin-top: 16px;
+        }
 
-        .pic {
-          // width: 100%;
+        .container_pic {
+          grid-column: span 4;
 
-          // img {
-          //   width: 100%;
-          //   height: 100%;
-          // }
+          .pic {
+            // width: 100%;
 
-          .web {
-            display: block;
+            // img {
+            //   width: 100%;
+            //   height: 100%;
+            // }
+
+            .web {
+              display: block;
+            }
+            .mb {
+              display: none;
+            }
           }
-          .mb {
+        }
+
+        .container_about {
+          grid-column: span 3;
+        }
+
+        .container_experience {
+          grid-column: span 4;
+          .container_title {
+            margin-top: 0px;
+          }
+
+          ul {
+            li {
+              line-height: 32px;
+            }
+          }
+        }
+
+        .container_opponents {
+          grid-column: span 1;
+
+          .container_title {
             display: none;
           }
-        }
-      }
 
-      .container_about {
-        grid-column: span 3;
-      }
-
-      .container_experience {
-        grid-column: span 4;
-        .container_title {
-          margin-top: 0px;
-        }
-
-        ul {
-          li {
-            line-height: 32px;
+          .opponents_list {
+            flex-direction: column;
+            padding-top: 224px;
           }
         }
       }
-
-      .container_opponents {
-        grid-column: span 1;
-
-        .container_title {
-          display: none;
-        }
-
-        .opponents_list {
-          flex-direction: column;
-          padding-top: 224px;
-        }
-      }
     }
-  }}
+  }
 }
 </style>

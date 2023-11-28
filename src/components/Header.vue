@@ -20,16 +20,9 @@
         <router-link to="/" class="page_link">首頁</router-link>
         <div class="mb_link_list">
           <p>認識候選人</p>
-          <!-- BUG 路徑會重複，還沒解決 -->
-          <router-link to="`/candidate/1`" class="mb_link"
-            >01 喵楚魚</router-link
-          >
-          <router-link to="`/candidate/2`" class="mb_link"
-            >02 喵英文</router-link
-          >
-          <router-link to="`/candidate/3`" class="mb_link"
-            >03 汪國魚</router-link
-          >
+          <router-link to="/candidate/1" class="mb_link">01 喵楚魚</router-link>
+          <router-link to="/candidate/2" class="mb_link">02 喵英文</router-link>
+          <router-link to="/candidate/3" class="mb_link">03 汪國魚</router-link>
         </div>
       </div>
       <div class="overlay" v-show="menuOpen" @click="toggleMenu"></div>
@@ -37,37 +30,36 @@
   </header>
 </template>
 
-<script>
-import { ref, onMounted, onUnmounted } from "vue";
+<script setup>
+import { ref, onMounted, onUnmounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
-export default {
-  name: "Header",
-  setup() {
-    const menuOpen = ref(false);
-    const isMobile = ref(window.innerWidth < 768);
+const menuOpen = ref(false);
+const isMobile = ref(window.innerWidth < 768);
+const route = useRoute();
 
-    const updateMobileStatus = () => {
-      isMobile.value = window.innerWidth < 768;
-    };
-
-    const toggleMenu = () => {
-      menuOpen.value = !menuOpen.value;
-    };
-
-    onMounted(() => {
-      window.addEventListener("resize", updateMobileStatus);
-      // 確保初始載入時也進行檢查
-      updateMobileStatus();
-    });
-
-    onUnmounted(() => {
-      window.removeEventListener("resize", updateMobileStatus);
-    });
-
-    return { menuOpen, isMobile, toggleMenu };
-  },
+const updateMobileStatus = () => {
+  isMobile.value = window.innerWidth < 768;
 };
+
+const toggleMenu = () => {
+  menuOpen.value = !menuOpen.value;
+};
+
+watch(route, () => {
+  menuOpen.value = false;
+});
+
+onMounted(() => {
+  window.addEventListener('resize', updateMobileStatus);
+  updateMobileStatus();
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateMobileStatus);
+});
 </script>
+
 
 <style lang="scss" scoped>
 @import "@/assets/scss/all.scss";
@@ -83,7 +75,7 @@ export default {
   background-color: $blue-d;
   color: $bg;
   width: 100%;
-  
+
   .overlay {
     display: none;
     position: fixed;
@@ -96,7 +88,7 @@ export default {
     z-index: 4;
     // transition: all 1.5s ease-in-out;
   }
-  
+
   nav {
     width: 100%;
     display: flex;
