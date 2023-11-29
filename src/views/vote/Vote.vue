@@ -22,12 +22,14 @@ const changeYear = (year) => {
         store.dispatch("fetchData", {fileName: transformName(store.state.currentZone.city), isCity: true});
     }else if(level ==="district"){
         let startDistrict = store.state.currentZone.district
-        let endDistrict = store.state.countyData.forEach((district, index)=>{
+        let endDistrict = ""
+        store.state.countyData.forEach((district, index)=>{
             if(district.name === startDistrict){
+                console.log(district.name, index);
                 if(index+1 === store.state.countyData.length){
-                    return ""
-                }else{
-                    return store.state.countyData[index+1].name
+                    endDistrict = ""
+                }else{;
+                    endDistrict = store.state.countyData[index+1].name
                 }
             }
         })

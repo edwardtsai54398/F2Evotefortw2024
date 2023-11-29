@@ -115,9 +115,8 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/all.scss";
 .candidate_flex {
-  margin: 0 -8px;
-  margin-bottom: -8px;
   height: 100%;
+  width: 100%;
   padding: 0;
   padding-top: 60px;
   background: $bg;
@@ -127,9 +126,8 @@ export default {
     display: flex;
     flex-direction: column;
     height: 100%;
+    width: 100%;
     flex-grow: 1;
-    // width: 100hw;
-    // overflow: hidden;
 
     h1 {
       margin-top: 12px;

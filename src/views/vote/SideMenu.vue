@@ -144,19 +144,19 @@ export default {
       {
         name: "喵英文",
         ration: green,
-        imgUrl: require('@/assets/images/candidate/tsai.png'),
+        imgUrl: 'image/candidate/tsai.png',
         class: "green",
       },
       {
         name: "汪國魚",
         ration: blue,
-        imgUrl: require('@/assets/images/candidate/han.png'),
+        imgUrl: 'image/candidate/han.png',
         class: "blue",
       },
       {
         name: "喵楚魚",
         ration: orange,
-        imgUrl: require('@/assets/images/candidate/song.png'),
+        imgUrl: 'image/candidate/song.png',
         class: "orange",
       },
     ]);
