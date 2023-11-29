@@ -9,7 +9,7 @@ import { transformName } from "../../utils/method";
 const store = useStore();
 
 const years = [2020, 2016, 2012];
-const partySymbol = ref(["國民黨", "民進黨", "親民黨"]);
+const partySymbol = ref(["藍汪黨", "綠肉球黨", "大橘貓黨"]);
 
 const currentYear = ref(2020);
 const changeYear = (year) => {

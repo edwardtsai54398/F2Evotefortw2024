@@ -3,7 +3,7 @@
     <div class="top-navgation">
       <div class="selection">
         <div class="city" @click="openCitySelection" :class="{on: citySelectionOpen}">
-          <img src="../../../public/image/arrow-active.svg" alt="" class="city-arrow" :class="{active: citySelectionOpen}">
+          <img src="@/assets/images/arrow-active.svg" alt="" class="city-arrow" :class="{active: citySelectionOpen}">
           <span v-if="!currentCity">選擇縣市</span>
           <span v-else>{{ currentCity }}</span>
           <ul class="option" v-show="citySelectionOpen">
@@ -11,8 +11,8 @@
           </ul>
         </div>
         <div class="area" @click="openCountySelection" :class="{on: countySelectionOpen}">
-          <img v-if="!currentCity" src="../../../public/image/arrow.svg" alt="" class="area-arrow" :class="{active: countySelectionOpen}">
-          <img v-else src="../../../public/image/arrow-active.svg" alt="" class="area-arrow" :class="{active: countySelectionOpen}">
+          <img v-if="!currentCity" src="@/assets/images/arrow.svg" alt="" class="area-arrow" :class="{active: countySelectionOpen}">
+          <img v-else src="@/assets/images/arrow-active.svg" alt="" class="area-arrow" :class="{active: countySelectionOpen}">
           <span v-if="!currentCounty">選擇區域</span>
           <span v-else>{{ currentCounty }}</span>
           <ul class="option" v-show="countySelectionOpen">
@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="mobile-arrow" @click="openSideMenu">
-      <img src="../../assets/images/mobile-arrow.png" alt="arrow" :class="{ 'down': isSideMenuOpen }">
+      <img src="@/assets/images/mobile-arrow.png" alt="arrow" :class="{ 'down': isSideMenuOpen }">
     </div>
   </div>
 </template>
@@ -142,21 +142,21 @@ export default {
     })
     const candidateVoteRation = reactive([
       {
-        name: "蔡英文",
+        name: "喵英文",
         ration: green,
-        imgUrl: '../../public/image/candidate/tsai.png',
+        imgUrl: require('@/assets/images/candidate/tsai.png'),
         class: "green",
       },
       {
-        name: "韓國瑜",
+        name: "汪國魚",
         ration: blue,
-        imgUrl: '../../public/image/candidate/han.png',
+        imgUrl: require('@/assets/images/candidate/han.png'),
         class: "blue",
       },
       {
-        name: "宋楚瑜",
+        name: "喵楚魚",
         ration: orange,
-        imgUrl: '../../public/image/candidate/song.png',
+        imgUrl: require('@/assets/images/candidate/song.png'),
         class: "orange",
       },
     ]);

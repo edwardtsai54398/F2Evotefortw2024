@@ -89,9 +89,11 @@ export default createStore({
             }
             let url;
             if (state.isCity) {
-                url = `/${state.currentYear}_president/city/`;
+                // url = `/${state.currentYear}_president/city/`;
+                url = `${state.currentYear}_president/city/`;
             } else {
-                url = `/${state.currentYear}_president/district/`;
+                // url = `/${state.currentYear}_president/district/`;
+                url = `${state.currentYear}_president/district/`;
             }
             fetch(`${url}${file.fileName}.json`)
                 .then((res) => {
