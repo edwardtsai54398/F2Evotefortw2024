@@ -1,0 +1,261 @@
+.main-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 50px 10px;
+  .title {
+    text-align: center;
+    span {
+      display: block;
+      background: linear-gradient(180deg, #0D2562 -28.5%, rgba(13, 37, 98, 0.6) 103.93%);
+      color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;
+      position: relative;
+    }
+    .year-decoration {
+      font-size: 85px;
+      .double-txt {
+        font-size: 85px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(13, 37, 98, 1);
+        background: none;
+      }
+    }
+    .president-title {
+      font-size: 50px;
+      &::after {
+        content: '總統大選';
+        position: absolute;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(13, 37, 98, 1);
+        left: -2px;
+        top: 1px;
+      }
+    }
+  }
+  .year-selection {
+    margin: 50px 12px 0 0;
+    position: relative;
+    padding: 5px 0;
+    &::after {
+      content: '';
+      position: absolute;
+      background: linear-gradient(90deg, #0D2562 0%, rgba(13, 37, 98, 0.2) 117.09%);
+      right: -10px;
+      top: 0;
+      width: 1px;
+      height: 100%;
+    }
+    li {
+      width: 63px;
+      position: relative;
+      text-align: center;
+      padding: 8px 0;
+      background: rgba(13, 37, 98, 1);
+      border-radius: 100px;
+      &:not(:last-child) {
+        margin-bottom: 35px;
+      }
+    }
+    button {
+      color: #fff;
+      font-weight: 700;
+      font-size: 18px;
+      outline: none;
+      border: none;
+      background: transparent;
+      &.active {
+        color: rgba(13, 37, 98, 1);
+        border: none;
+      }
+    }
+    .active {
+      border: 2px solid rgba(13, 37, 98, 1);
+      background: rgba(254, 251, 243, 1);
+    }
+  }
+  .decoration {
+    position: absolute;
+    right: -14px;
+    top: 13px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(73, 89, 129, 1);
+    &.deco-active {
+      background-color: rgba(13, 37, 98, 1);
+      right: -15px;
+    }
+  }
+  .party-symbol {
+    margin-top: auto;
+    li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &:not(:last-child) {
+        margin-bottom: 12px;
+      }
+      &:nth-of-type(1)span {
+        background-color: rgba(140, 181, 219, 1);
+      }
+      &:nth-of-type(2)span {
+        background-color: rgba(116, 156, 116, 1)
+      }
+      &:nth-of-type(3)span {
+        background-color: rgba(255, 176, 134, 1)
+      }
+    }
+    span {
+      width: 20px;
+      height: 20px;
+      margin-right: 12px;
+      border-radius: 50%;
+      display: block;
+    }
+  }
+}
+.mobile-symbol {
+  position: fixed;
+  right: 30px;
+  bottom: 300px;
+  display: none;
+  span {
+    padding: 5px;
+    border-radius: 50px;
+    background: linear-gradient(180deg, #0D2562, #3B4F82);
+    color: #FEFBF3;
+    display: block;
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width:768px ) {
+  .main-title {
+    position: fixed;
+    top: 20px;
+    left: 5px;
+    align-items: flex-start;
+    .title {
+      text-align-last: left;
+      .year-decoration {
+        font-size: 50px;
+        .double-txt {
+          font-size: 50px;
+          top: 2px;
+          left: 4px;
+        }
+      }
+      .president-title {
+        font-size: 30px;
+        margin-top: 10px;
+      }
+    }
+    .party-symbol {
+      display: none;
+    }
+    .year-selection {
+      margin: 25px 0 0 0;
+      &::after {
+        right: 60px;
+      }
+      li {
+        &:not(:last-child) {
+          margin-bottom: 10px;
+        }
+        border: none;
+        background: none;
+        button {
+          color: #0D2562;
+          opacity: 0.5;
+        }
+      }
+      .active {
+        border: none;
+        opacity: 1;
+      }
+    }
+    .no-show {
+      display: none;
+    }
+    .decoration {
+      right: 57px;
+    }
+    .decoration.deco-active {
+      right: 57px;
+    }
+  }
+  .mobile-symbol {
+    display: block;
+    .active {
+      background: #FEFBF3;
+      color: #0D2562;
+      border: 1px solid #0D2562;
+    }
+  }
+  dialog {
+    top: 40%;
+    transform: translateY(-50%);
+    padding: 20px;
+    width: 80%;
+    right: 0;
+    left: 0;
+    margin: auto;
+    border: none;
+    background: #FEFBF3;
+    border-radius: 12px;
+    position: relative;
+    h6 {
+      color: #0D2562;
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+    p {
+      color: #3D3D3D;
+      margin-bottom: 20px;
+    }
+    ul {
+      display: flex;
+    }
+    li {
+      display: flex;
+      align-items: center;
+      margin-right: 15px;
+      span {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin-right: 5px;
+        display: block;
+      }
+      &:nth-of-type(1) {
+        span {
+          background: #8CB5DB;
+        }
+      }
+      &:nth-of-type(2) {
+        span {
+          background: #749C74;
+        }
+      }
+      &:nth-of-type(3) {
+        span {
+          background: #FFB086;
+        }
+      }
+    }
+    button {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      font-size: 20px;
+      outline: none;
+      border: none;
+    }
+  }
+}

@@ -1,0 +1,195 @@
+.side-menu {
+  width: 30%;
+  position: relative;
+  max-height: 100vh;
+  z-index: 100;
+  padding: 10px;
+  border-radius: 16px 30px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5), inset -3px 4px 4px rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(254, 251, 243, 1);
+  background-color: $bg;
+  .top-navgation {
+    min-height: 230px;
+    background: linear-gradient(180deg, #0D2562 0%, #4F6190 100%);
+    border-radius: 14px 14px 30px 30px;
+    padding: 15px 10px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+    .selection {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+    }
+    .city, .area {
+      position: relative;
+      background: linear-gradient(0deg, #FEFBF3, #FEFBF3),
+linear-gradient(0deg, #0D2562, #0D2562);
+      padding: 10px 20px;
+      border-radius: 6px;
+      appearance: none;
+      width: 45%;
+      font-size: 14px;
+      z-index: 100;
+    }
+    .city.on, .area.on {
+      background: rgba(255, 245, 217, 1);
+      border-radius: 6px 6px 0 0;
+    }
+    .area span {
+      
+    }
+    .option {
+      position: absolute;
+      width: 100%;
+      max-height: 200px;
+      overflow-y: auto;
+      left: 0;
+      top: 100%;
+      color: rgba(13, 37, 98, 1);
+      background: rgba(255, 245, 217, 1);
+      border-radius: 0 0 6px 6px;
+      li {
+        padding: 10px 20px;
+        &:hover {
+          background: rgba(254, 251, 243, 1);
+        }
+      }
+    }
+    .city-arrow {
+      position: absolute;
+      z-index: 1;
+      top: 15px;
+      right: 13px;
+      width: 8px;
+    }
+    .area-arrow {
+      position: absolute;
+      z-index: 1;
+      right: 13px;
+      top: 15px;
+      width: 8px;
+    }
+    .city-arrow.active, .area-arrow.active {
+      rotate: 180deg;
+    }
+    .candidate-all {
+      padding: 15px 18px 0 10px;
+      .candidate {
+        display: flex;
+        align-items: center;
+        position: relative;
+        &:not(:last-child) {
+          margin-bottom: 17px;
+        }
+      }
+      .decoration {
+        max-width: 100px;
+        white-space: nowrap;
+        overflow: hidden;
+        margin: auto;
+      }
+      img {
+        width: 35px;
+        height: 35px;
+        margin-right: 17px;
+      }
+      span {
+        color: rgba(254, 251, 243, 1);
+      }
+      .green {
+        color: rgba(116, 156, 116, 1);
+      }
+      .blue {
+        color: rgba(140, 181, 219, 1);
+      }
+      .orange {
+        color: rgba(255, 176, 134, 1);
+      }
+    }
+  }
+  .each-area-ratio {
+    height: calc(100% - 230px);
+    position: relative;
+    padding: 15px 25px 0;
+    font-size: 14px;
+    color: rgba(172, 172, 172, 1);
+    overflow-y: auto;
+    > .title {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+    span {
+      color: rgba(172, 172, 172, 1);
+      display: inline-block;
+      &:first-child {
+        width: 20%;
+      }
+      &:last-child {
+        width: 70%;
+      }
+    }
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(217, 217, 217, 1); 
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+  .mobile-arrow {
+    display: none;
+  }
+}
+
+@media screen and (max-width:768px ) {
+  .side-menu {
+    position: fixed;
+    transition: .8s;
+    top: 75%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: linear-gradient(180deg, #0D2562 0%, #4F6190 141.18%);
+    border: none;
+    box-shadow: none;
+    .top-navgation {
+      background: none;
+      box-shadow: none;
+      .candidate-all .decoration {
+        flex: 1;
+      }
+    }
+    .mobile-arrow {
+      display: block;
+      position: absolute;
+      top: -29px;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 60px;
+      padding: 5px 0;
+      text-align: center;
+      border-radius: 10px 10px 0 0;
+      border-top: 1px solid #aaa;
+      border-left: 1px solid #aaa;
+      border-right: 1px solid #aaa;
+      background-color: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 0 5px#0D2562;
+    }
+  }
+  .open {
+    top: 40%;
+    height: 580px;
+    padding: 10px 10px 50px;
+  }
+  .down {
+    rotate: 180deg;
+    transition: .5s;
+  }
+}
